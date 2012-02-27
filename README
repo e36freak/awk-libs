@@ -1,0 +1,59 @@
+AWK library function descriptions
+
+These libs are written for GNU awk 4.0 and newer
+
+
+
+int_math.awk
+
+  ceil(multiple, number)
+    returns "number" rounded UP to the nearest multiple of "multiple"
+
+  floor(multiple, number)
+    returns "number" rounded DOWN to the nearest multiple of "multiple"
+
+  round(multiple, number)
+    returns "number" rounded to the nearest multiple of "multiple"
+
+  change_base(number, start_base, end_base)
+    converts "number" from "start_base" to "end_base"
+    bases must be between 2 and 16
+    returns 0 if any argument is invalid
+
+
+
+strings.awk
+
+  shell_escape(string)
+    returns the string escaped so that it can be used in a shell command
+
+  str_to_arr(string, array)
+    converts string to an array, one char per element, 1-indexed
+    returns the array length
+
+  qsplit(string, array [, sep [, quantifier] ])
+    a version of split() designed for CSV-like data. splits "string" on "sep"
+    (, if not provided), into array[1], array[2], ... array[n]. returns "n".
+    both "sep" and "quantifier" will use the first character in the provided
+    string. uses "quantifier" (" if not provided) and ignores "sep" within
+    quoted fields. for example, foo,"bar,baz",blah will be split as such:
+    array[1] = "foo"; array[2] = "bar,baz"; array[3] = "blah";
+    currently, mid-field quantifiers are ignored
+
+
+
+times.awk
+
+  month_to_num(month)
+    converts human readable month to the decimal representation
+    returns the number, -1 if the month doesn't exist
+
+  day_to_num(day)
+    converts human readable day to the decimal representation
+    returns the number, -1 if the day doesn't exist
+
+  hr_to_sec(timestamp)
+    converts HH:MM:SS to seconds, returns -1 if invalid format
+
+  sec_to_hr(seconds)
+    converts seconds to HH:MM:SS
