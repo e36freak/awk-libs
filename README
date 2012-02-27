@@ -34,6 +34,9 @@ strings.awk
     converts string to an array, one char per element, 1-indexed
     returns the array length
 
+  trim(string)
+    returns "string" with leading and trailing whitespace trimmed
+
   qsplit(string, array [, sep [, qualifier] ])
     a version of split() designed for CSV-like data. splits "string" on "sep"
     (, if not provided), into array[1], array[2], ... array[n]. returns "n".

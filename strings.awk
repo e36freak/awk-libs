@@ -15,6 +15,14 @@ function str_to_arr(str, arr) {
   return split(str, arr, //);
 }
 
+## usage: trim(string)
+## returns "string" with leading and trailing whitespace trimmed
+function trim(str) {
+  gsub(/^[[:blank:]]+|[[:blank:]]+$/, "", str);
+
+  return str;
+}
+
 ## usage: qsplit(string, array [, sep [, qualifier] ])
 ## a version of split() designed for CSV-like data. splits "string" on "sep"
 ## (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
