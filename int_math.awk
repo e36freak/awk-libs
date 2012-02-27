@@ -98,10 +98,10 @@ function floor(mult, num) {
 
 ## usage: round(multiple, number)
 ## returns "number" rounded to the nearest multiple of "multiple"
-function round(mult, num) {
+function round(mult, num,    r) {
   if (num % mult < mult / 2) {
-    return floor(mult, num);
+    return num - (num % mult);
   } else {
-    return ceil(mult, num);
+    return (r = num % mult) ? num + (mult - r) : num;
   }
 }
