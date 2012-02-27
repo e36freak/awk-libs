@@ -8,12 +8,17 @@ function ceil(mult, num,    r) {
 
 ## usage: change_base(number, start_base, end_base)
 ## converts "number" from "start_base" to "end_base"
-## bases must be between 2 and 16
+## bases must be between 2 and 64. the digits greater than 9 are represented
+## by the lowercase letters, the uppercase letters, @, and _, in that order.
+## if ibase is less than or equal to 36, lowercase and uppercase letters may
+## be used interchangeably to represent numbers between 10 and 35.
 ## returns 0 if any argument is invalid
 function change_base(num, ibase, obase,
                      chars, c, l, i, j, cur, b10, f, fin, isneg) {
-  # convert number to lowercase
-  num = tolower(num);
+  # convert number to lowercase if ibase <= 36
+  if (ibase <= 36) {
+    num = tolower(num);
+  }
 
   # determine if number is negative. if so, set isneg=1 and remove the '-'
   if (sub(/^-/, "", num)) {
@@ -22,19 +27,23 @@ function change_base(num, ibase, obase,
 
   # determine if inputs are valid
   if (num ~ /[^[:xdigit:]]/ || ibase != int(ibase) || obase != int(obase) ||
-      ibase < 2 || ibase > 16 || obase < 2 || obase > 16) {
+      ibase < 2 || ibase > 64 || obase < 2 || obase > 64) {
     return 0;
   }
 
   # set letters to numbers conversion array
   if (ibase > 10 || obase > 10) {
     # set chars[] array to convert letters to numbers
-    chars["a"] = 10; chars["b"] = 11; chars["c"] = 12;
-    chars["d"] = 13; chars["e"] = 14; chars["f"] = 15;
+    c = "abcbdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@_";
+    l = length(c);
 
-    # set chars[] to go the opposite way, as well
-    for (c in chars) {
-      chars[chars[c]] = c;
+    j = 10;
+    for (i=1; i<=l; i++) {
+      cur = substr(c, i, 1);
+      chars[cur] = j;
+      chars[j] = cur;
+
+      j++;
     }
   }
   
@@ -46,7 +55,7 @@ function change_base(num, ibase, obase,
     for (i=l; i>0; i--) {
       c = substr(num, i, 1);
 
-      # if char is a-f convert to dec
+      # if char is a non-digit convert to dec
       if (c !~ /^[0-9]$/) {
         c = chars[c];
       }

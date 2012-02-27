@@ -17,7 +17,10 @@ int_math.awk
 
   change_base(number, start_base, end_base)
     converts "number" from "start_base" to "end_base"
-    bases must be between 2 and 16
+    bases must be between 2 and 64. the digits greater than 9 are represented
+    by the lowercase letters, the uppercase letters, @, and _, in that order.
+    if ibase is less than or equal to 36, lowercase and uppercase letters may
+    be used interchangeably to represent numbers between 10 and 35.
     returns 0 if any argument is invalid
 
 
