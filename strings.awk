@@ -11,15 +11,8 @@ function shell_escape(str) {
 ## usage: str_to_arr(string, array)
 ## converts string to an array, one char per element, 1-indexed
 ## returns the array length
-function str_to_arr(str, arr,    len, i) {
-  delete arr;
-  len = length(str);
-
-  for (i=1; i<=len; i++) {
-    arr[i] = substr(str, i, 1);
-  }
-
-  return len;
+function str_to_arr(str, arr) {
+  return split(str, arr, //);
 }
 
 ## usage: qsplit(string, array [, sep [, qualifier] ])
