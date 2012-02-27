@@ -22,14 +22,14 @@ function str_to_arr(str, arr,    len, i) {
   return len;
 }
 
-## usage: qsplit(string, array [, sep [, quantifier] ])
+## usage: qsplit(string, array [, sep [, qualifier] ])
 ## a version of split() designed for CSV-like data. splits "string" on "sep"
 ## (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
-## both "sep" and "quantifier" will use the first character in the provided
-## string. uses "quantifier" (" if not provided) and ignores "sep" within
+## both "sep" and "qualifier" will use the first character in the provided
+## string. uses "qualifier" (" if not provided) and ignores "sep" within
 ## quoted fields. for example, foo,"bar,baz",blah will be split as such:
 ## array[1] = "foo"; array[2] = "bar,baz"; array[3] = "blah";
-## currently, mid-field quantifiers are ignored
+## currently, mid-field qualifiers are ignored
 ## TODO: properly handle quotes mid-field, consider allowing an ERE for "sep"
 function qsplit(str, arr, sep, q,    i, c, l, tarr) {
   delete arr;
