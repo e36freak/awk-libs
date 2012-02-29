@@ -23,6 +23,18 @@ function trim(str) {
   return str;
 }
 
+## usage: rev(string)
+## returns "string" backwards
+function rev(str,    a, len, i, o) {
+  len = split(str, a, //);
+
+  for (i=len; i>0; i--) {
+    o = o a[i];
+  }
+
+  return o;
+}
+
 ## usage: qsplit(string, array [, sep [, qualifier] ])
 ## a version of split() designed for CSV-like data. splits "string" on "sep"
 ## (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
