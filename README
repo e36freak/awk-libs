@@ -30,6 +30,12 @@ strings.awk
   shell_escape(string)
     returns the string escaped so that it can be used in a shell command
 
+  ssub(ere, repl[, in])
+    behaves like sub, except returns the result and doesn't modify "in"
+
+  sgsub(ere, repl[, in])
+    behaves like gsub, except returns the result and doesn't modify "in"
+
   str_to_arr(string, array)
     converts string to an array, one char per element, 1-indexed
     returns the array length

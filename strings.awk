@@ -1,5 +1,27 @@
 #!/bin/awk -f
 
+## usage: ssub(ere, repl[, in])
+## behave like sub, except returns the result and doesn't modify the original
+function ssub(ere, repl, in) {
+  if (!length(in)) {
+    in = $0;
+  }
+
+  sub(ere, repl, in);
+  return in;
+}
+
+## usage: sgsub(ere, repl[, in])
+## behave like gsub, except returns the result and doesn't modify the original
+function ssub(ere, repl, in) {
+  if (!length(in)) {
+    in = $0;
+  }
+
+  gsub(ere, repl, in);
+  return in;
+}
+
 ## usage: shell_escape(string)
 ## returns the string escaped so that it can be used in a shell command
 function shell_escape(str) {
