@@ -4,7 +4,7 @@ These libs are written for GNU awk 4.0 and newer
 
 
 
-int_math.awk
+math.awk
 
   ceil(multiple, number)
     returns "number" rounded UP to the nearest multiple of "multiple"
