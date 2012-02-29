@@ -23,6 +23,13 @@ int_math.awk
     be used interchangeably to represent numbers between 10 and 35.
     returns 0 if any argument is invalid
 
+  calc_pi()
+    returns pi, with an accuracy of 10 decimal places
+
+  calc_e()
+    approximates e by calculating the sumation from k=0 to k=50 of 1/k!
+    returns 10 decimal places
+
 
 
 strings.awk
@@ -72,3 +79,4 @@ times.awk
 
   sec_to_hr(seconds)
     converts seconds to HH:MM:SS
+
