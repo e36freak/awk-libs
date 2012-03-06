@@ -13,7 +13,7 @@ function ssub(ere, repl, str) {
 
 ## usage: sgsub(ere, repl[, in])
 ## behave like gsub, except returns the result and doesn't modify the original
-function ssub(ere, repl, str) {
+function sgsub(ere, repl, str) {
   if (!length(str)) {
     str = $0;
   }
