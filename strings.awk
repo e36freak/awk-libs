@@ -2,24 +2,24 @@
 
 ## usage: ssub(ere, repl[, in])
 ## behave like sub, except returns the result and doesn't modify the original
-function ssub(ere, repl, in) {
-  if (!length(in)) {
-    in = $0;
+function ssub(ere, repl, str) {
+  if (!length(str)) {
+    str = $0;
   }
 
-  sub(ere, repl, in);
-  return in;
+  sub(ere, repl, str);
+  return str;
 }
 
 ## usage: sgsub(ere, repl[, in])
 ## behave like gsub, except returns the result and doesn't modify the original
-function ssub(ere, repl, in) {
-  if (!length(in)) {
-    in = $0;
+function ssub(ere, repl, str) {
+  if (!length(str)) {
+    str = $0;
   }
 
-  gsub(ere, repl, in);
-  return in;
+  gsub(ere, repl, str);
+  return str;
 }
 
 ## usage: shell_escape(string)
