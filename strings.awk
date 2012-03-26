@@ -62,11 +62,11 @@ function rev(str,    a, len, i, o) {
 ## (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
 ## both "sep" and "qualifier" will use the first character in the provided
 ## string. uses "qualifier" (" if not provided) and ignores "sep" within
-## quoted fields. for example, foo,"bar,baz",blah will be split as such:
-## array[1] = "foo"; array[2] = "bar,baz"; array[3] = "blah";
-## currently, mid-field qualifiers are ignored
-## TODO: properly handle quotes mid-field, consider allowing an ERE for "sep"
-function qsplit(str, arr, sep, q,    i, c, l, tarr) {
+## quoted fields. doubled qualifiers are considered escaped, and a single 
+## qualifier character is used in its place.
+## for example, foo,"bar,baz""blah",quux will be split as such:
+## array[1] = "foo"; array[2] = "bar,baz\"blah"; array[3] = "quux";
+function qsplit(str, arr, sep, q,    a, len, cur, isin, c) {
   delete arr;
 
   # set "sep" if the argument was provided, using the first char
@@ -85,30 +85,39 @@ function qsplit(str, arr, sep, q,    i, c, l, tarr) {
     q = "\"";
   }
 
-  # split the string into the temporary array "tarr" on "sep"
-  l = split(str, tarr, sep);
+  # split the string into the temporary array "a", one element per char
+  len = split(str, a, //);
 
-  # "c" contains the current element of 'arr' the function is assigning to
-  c = 1;
-  # iterate over each element of "tarr"
-  i = 1;
-  while (i <= l) {
-    # if the element starts with "q"...
-    if (substr(tarr[i], 1, 1) == q) {
-      # loop over each element, starting with the current one, concatenating
-      # and appending to "arr" until an element ends with "q"
-      do {
-        arr[c] = (c in arr) ? arr[c] sep tarr[i] : tarr[i];
-      } while ((foo = substr(tarr[i], length(tarr[i++]))) != q && i <= l);
+  # "cur" contains the current element of 'arr' the function is assigning to
+  cur = 1;
+  # boolean, whether or not the iterator is in a quoted string
+  isin = 0;
+  # iterate over each character
+  for (c=1; c<=len; c++) {
+    # if the current char is a quote...
+    if (a[c] == q) {
+      # if the next char is a quote, it's an escaped literal quote. append
+      if (a[c+1] == q) {
+        arr[cur] = arr[cur] a[c];
+        c++;
 
-    # otherwise, just append the current field to "arr"
+        continue;
+      }
+
+      # otherwise, it's a qualifier. switch boolean.
+      isin = ! isin;
+
+    # if the current char is the separator, and we're not within quotes
+    } else if (a[c] == sep && !isin) {
+      # increment array element
+      cur++;
+
+    # otherwise, just append to the current element
     } else {
-      arr[c] = tarr[i++];
+      arr[cur] = arr[cur] a[c];
     }
-
-    c++;
   }
 
-  # return the length
-  return c - 1;
+  # return length
+  return cur;
 }
