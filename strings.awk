@@ -96,16 +96,17 @@ function qsplit(str, arr, sep, q,    a, len, cur, isin, c) {
   for (c=1; c<=len; c++) {
     # if the current char is a quote...
     if (a[c] == q) {
-      # if the next char is a quote, it's an escaped literal quote. append
-      if (a[c+1] == q) {
+      # if the next char is a quote, and the previous character is not a
+      # delimiter, it's an escaped literal quote (allows empty fields 
+      # that are quoted, such as "foo","","bar")
+      if (a[c+1] == q && a[c-1] != sep) {
         arr[cur] = arr[cur] a[c];
         c++;
 
-        continue;
+      # otherwise, it's a qualifier. switch boolean
+      } else {
+        isin = ! isin;
       }
-
-      # otherwise, it's a qualifier. switch boolean.
-      isin = ! isin;
 
     # if the current char is the separator, and we're not within quotes
     } else if (a[c] == sep && !isin) {
