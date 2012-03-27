@@ -8,8 +8,7 @@
 ## it is a comma. "qualifier", if provided, is the quote character. Like "sep",
 ## it is one character. The default value is `"'. For example, the array:
 ## a[1]="foo"; a[2]="bar,quux"; a[3]="blah\"baz", when called with
-## create_line(a, 3), will return: "foo","bar,quux","blah""baz". Returns -1 if
-## an error occurs.
+## create_line(a, 3), will return: "foo","bar,quux","blah""baz".
 ## note: expects a non-sparse array. empty or unset values will become
 ## empty fields
 function create_line(arr, len, sep, q,    i, out, c, new) {
