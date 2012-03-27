@@ -1,18 +1,18 @@
 #!/bin/awk -f
 
 ## usage: getopts(optstring [, longopt_array ])
-## "optstring" is of the form "ab:c". each letter is a possible option. if the
-## letter is followed by a colon (:), then the option requires an argument. if
-## an argument is not provided, or an invalid option is given, getopts will
-## print the appropriate error message, set "err" to 1, and exit (make sure you
-## check this in your END block). returns each option as it's read, and -1
-## when no options are left. "optind" will be set to the index of the next
-## non-option argument when finished. "optarg" will be set to the option's
+## parses options, and deletes them from ARGV. "optstring" is of the form
+## "ab:c". each letter is a possible option. if the letter is followed by a
+## colon (:), then the option requires an argument. if an argument is not
+## provided, or an invalid option is given, getopts will print the appropriate
+## error message and return "?". returns each option as it's read, and -1 when
+## no options are left. "optind" will be set to the index of the next
+## non-option argument when finished.  "optarg" will be set to the option's
 ## argument, when required. if not required, "optarg" will be empty.  getopts
-## will delete each option and argument that it successfully reads, so awk
-## will be able to treat whatever's left as filenames/assignments, as usual.
-## if provided, "longopt_array" is the name of an associative array that maps
-## long options to the appropriate short option. (do not include the hyphens on
+## will delete each option and argument that it successfully reads, so awk will
+## be able to treat whatever's left as filenames/assignments, as usual. if
+## provided, "longopt_array" is the name of an associative array that maps long
+## options to the appropriate short option. (do not include the hyphens on
 ## either).
 ## sample usage can be found at http://auriga.kiwilight.com/~freak/awk_getopts
 function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
@@ -51,8 +51,7 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     # invalid long opt
     if (!(trimmed in longarr)) {
       printf("unrecognized option -- '%s'\n", ARGV[optind]) > "/dev/stderr";
-      err = 1;
-      exit err;
+      return "?";
     }
 
     opt = longarr[trimmed];
@@ -67,8 +66,7 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     # invalid option
     if (!index(optstring, opt)) {
       printf("invalid option -- '%s'\n", opt) > "/dev/stderr";
-      err = 1;
-      exit err;
+      return "?";
     }
 
     # if there's more to the argument than just -o
@@ -92,8 +90,7 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     # increment optind, check if no arguments are left
     if (++optind >= ARGC) {
       printf("option requires an argument -- '%s'\n", opt) > "/dev/stderr";
-      err = 1;
-      exit err;
+      return "?";
     }
 
     # set optarg

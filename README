@@ -92,19 +92,19 @@ csv.awk
 options.awk
 
   getopts(optstring [, longopt_array ])
-    Parses options, and deletes them from ARGV. "optstring" is of the form 
+    parses options, and deletes them from ARGV. "optstring" is of the form
     "ab:c". each letter is a possible option. if the letter is followed by a
     colon (:), then the option requires an argument. if an argument is not
     provided, or an invalid option is given, getopts will print the appropriate
-    error message, set "err" to 1, and exit (make sure you check this in your
-    END block). returns each option as it's read, and -1 when no options are
-    left. "optind" will be set to the index of the next non-option argument when
-    finished. "optarg" will be set to the option's argument, when required. if
-    not required, "optarg" will be empty. getopts will delete each option and
-    argument that it successfully reads, so awk will be able to treat whatever's
-    left as filenames/assignments, as usual. if provided, "longopt_array" is the
-    name of an associative array that maps long options to the appropriate short
-    option. (do not include the hyphens on either).
+    error message and return "?". returns each option as it's read, and -1 when
+    no options are left. "optind" will be set to the index of the next
+    non-option argument when finished.  "optarg" will be set to the option's
+    argument, when required. if not required, "optarg" will be empty.  getopts
+    will delete each option and argument that it successfully reads, so awk will
+    be able to treat whatever's left as filenames/assignments, as usual. if
+    provided, "longopt_array" is the name of an associative array that maps long
+    options to the appropriate short option. (do not include the hyphens on
+    either).
     sample usage can be found at http://auriga.kiwilight.com/~freak/awk_getopts
 
 
