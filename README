@@ -37,11 +37,19 @@ strings.awk
   shell_escape(string)
     returns the string escaped so that it can be used in a shell command
 
-  ssub(ere, repl[, in])
+  ssub(ere, repl [, in])
     behaves like sub, except returns the result and doesn't modify "in"
 
-  sgsub(ere, repl[, in])
+  sgsub(ere, repl [, in])
     behaves like gsub, except returns the result and doesn't modify "in"
+
+  lsub(str, repl [, in])
+    substites the string "repl" in place of the first instance of "str" in the
+    string "in" and returns the result. does not modify the original string. if
+    "in" is not provided, uses $0
+
+  glsub(str, repl [, in])
+    behaves like lsub, except it replaces all occurances of "str"
 
   str_to_arr(string, array)
     converts string to an array, one char per element, 1-indexed

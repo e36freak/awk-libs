@@ -37,7 +37,7 @@ function create_line(arr, len, sep, q,    i, out, c, new) {
     # empty escaped string
     new = "";
     # create escaped string
-    while ((c = index(arr[i], q))) {
+    while (c = index(arr[i], q)) {
       new = new substr(arr[i], 1, c - 1) q q;
       arr[i] = substr(arr[i], c + 1);
     }
