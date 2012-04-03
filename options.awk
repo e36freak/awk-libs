@@ -17,7 +17,6 @@
 ## sample usage can be found at http://auriga.kiwilight.com/~freak/awk_getopts
 function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
   hasarg = repeat = 0;
-
   # increment optind
   optind++;
 
@@ -31,7 +30,6 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     for (i=1; i<=optind; i++) {
       delete ARGV[i];
     }
-
     return -1;
   }
 
@@ -39,12 +37,11 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
   if (ARGV[optind] ~ /^--/) {
     # trim hyphens
     trimmed = substr(ARGV[optind], 3);
-    # if it's of the format --foo=bar, split the two. assign 'bar' to optarg and
+    # if of the format --foo=bar, split the two. assign "bar" to optarg and
     # set hasarg to 1
     if (trimmed ~ /.*=.*/) {
       optarg = trimmed;
-      sub(/=.*/, "", trimmed);
-      sub(/^[^=]*=/, "", optarg);
+      sub(/=.*/, "", trimmed); sub(/^[^=]*=/, "", optarg);
       hasarg = 1;
     }
     
@@ -56,11 +53,11 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
 
     opt = longarr[trimmed];
 
-  # otherwise, it's a short option
+  # otherwise, it is a short option
   } else {
     # remove the hyphen, and get just the option letter
     opt = substr(ARGV[optind], 2, 1);
-    # set trimmed to whatever's left
+    # set trimmed to whatevers left
     trimmed = substr(ARGV[optind], 3);
 
     # invalid option
@@ -69,7 +66,7 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
       return "?";
     }
 
-    # if there's more to the argument than just -o
+    # if there is more to the argument than just -o
     if (length(trimmed)) {
       # if option requires an argument, set the rest to optarg and hasarg to 1
       if (index(optstring, opt ":")) {
