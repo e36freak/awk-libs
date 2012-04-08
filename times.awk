@@ -55,7 +55,7 @@ function day_to_num(day,    days, d) {
 ## returns -1 if invalid format
 function hr_to_sec(time,    t, l, i, j) {
   # check for valid format
-  if (time !~ /^([0-9]+:[0-9]{2}|[0-9]+):[0-9]{2}$/) {
+  if (time !~ /^[0-9]+(:[0-9][0-9])?:[0-9][0-9]$/) {
     return -1;
   }
 
@@ -64,7 +64,7 @@ function hr_to_sec(time,    t, l, i, j) {
   
   j = time = 0;
   for (i=l; i>0; i--) {
-    time += t[i] * (60 ** j++);
+    time += t[i] * (60 ^ j++);
   }
 
   return time;

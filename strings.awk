@@ -13,8 +13,8 @@ function center(str,    cols, tty, off, cmd) {
     close(cmd);
   }
 
-  off = ((cols/2) + (length(str)/2));
-  print cols, off;
+  off = int((cols/2) + (length(str)/2));
+
   return sprintf("%*s", off, str);
 }
 

@@ -65,7 +65,7 @@ function change_base(num, ibase, obase,
         return 0;
       }
 
-      b10 += c * (ibase ** j++);
+      b10 += c * (ibase ^ j++);
     }
   } else {
     # num is already base 10
