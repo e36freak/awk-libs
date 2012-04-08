@@ -8,11 +8,13 @@ functions within. Interval notation has not been used in the functions in this
 library, even though POSIX states that they should be supported, because most
 current implementations of awk still do not support them.
 
-Note: mawk 1.3.3 is even less so than 1.3.4, and doesn't handle POSIX character
-classes in regexes, among other things. It is currently the standard on ubuntu,
-and probably other debian-based linux distributions. Even functions marked with
-'**' are not guaranteed to work on older versions of mawk, although they should
-not be too hard to alter in order to do so.
+Note: mawk 1.3.3 is even less POSIX compliant than 1.3.4, and doesn't handle
+POSIX character classes in regexes (like [:space:] or [:alpha:]), among other
+things. It is currently the standard on ubuntu, and is most likely standard on
+other debian-based linux distributions, as well. Even functions marked with
+'**' are not guaranteed to work on versions of mawk prior to 1.3.4, although
+they should not be too hard to alter in order to do so. (The biggest issue is
+split(str, arr, //) ).
 
 I recommend adding the location of this repo to the AWKPATH environment
 variable (if you're using gawk), so using -f and gawk's @include doesn't
