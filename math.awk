@@ -161,3 +161,27 @@ function rad_to_deg(rad,    tau) {
 
   return (rad/tau) * 360;
 }
+
+## usage: tan(expr)
+## returns the tangent of expr, which is in radians
+function tan(ang) {
+  return sin(ang)/cos(ang);
+}
+
+## usage: csc(expr)
+## returns the cosecant of expr, which is in radians
+function csc(ang) {
+  return 1/sin(ang);
+}
+
+## usage: sec(expr)
+## returns the secant of expr, which is in radians
+function sec(ang) {
+  return 1/cos(ang);
+}
+
+## usage: cot(expr)
+## returns the cotangent of expr, which is in radians
+function cot(ang) {
+  return cos(ang)/sin(ang);
+}

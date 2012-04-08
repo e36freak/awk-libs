@@ -39,6 +39,18 @@ math.awk
   rad_to_deg(radians)
     converts radians to degrees
 
+  tan(expr)
+    returns the targent of expr, which is in radians
+
+  csc(expr)
+    returns the cosecant of expr, which is in radians
+
+  sec(expr)
+    returns the secant of expr, which is in radians
+
+  cot(expr)
+    returns the cotangent of expr, which is in radians
+
 
 
 strings.awk
