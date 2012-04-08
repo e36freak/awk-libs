@@ -1,0 +1,112 @@
+#!/bin/awk -f
+
+# include library. gawk can use AWKPATH so the actual path isn't needed, see
+# the man page
+@include "../math.awk";
+
+# usage: ceil(multiple, number)
+# returns "number" rounded UP to the nearest multiple of "multiple"
+BEGIN {
+  # nearest multiple of 5 above 6 is 10
+  print ceil(5, 6);
+}
+
+# usage: floor(multiple, number)
+# returns "number" rounded DOWN to the nearest multiple of "multiple"
+BEGIN {
+  # nearest multiple of 5 below 9 is 5
+  print floor(5, 9);
+}
+
+# usage: round(multiple, number)
+# returns "number" rounded to the nearest multiple of "multiple"
+BEGIN {
+  # nearest multiple of 5 to 8 is 10
+  print round(5, 8);
+}
+
+# usage: change_base(number, start_base, end_base)
+# converts "number" from "start_base" to "end_base"
+# bases must be between 2 and 64. the digits greater than 9 are represented
+# by the lowercase letters, the uppercase letters, @, and _, in that order.
+# if ibase is less than or equal to 36, lowercase and uppercase letters may
+# be used interchangeably to represent numbers between 10 and 35.
+# returns 0 if any argument is invalid
+BEGIN {
+  # convert '3' to binary:
+  print change_base(3, 10, 2);
+
+  # convert '111' in binary to decimal:
+  print change_base(111, 2, 10);
+
+  # convert 111 in binary to hex:
+  print change_base(111, 2, 16);
+
+  # convert 1f in hex to decimal:
+  print change_base("1f", 16, 10);
+}
+
+# usage: calc_e()
+# approximates e by calculating the sumation from k=0 to k=50 of 1/k!
+# returns 10 decimal places
+BEGIN {
+  # prints e
+  print "e is approximately " calc_e();
+}
+
+# usage: calc_pi()
+# returns pi, with an accuracy of 10 decimal places
+BEGIN {
+  # prints pi
+  print "pi is approximately " calc_pi();
+}
+
+# usage: calc_tau()
+# returns tau, with an accuracy of 10 decimal places
+# http://tauday.com/tau-manifesto
+BEGIN {
+  # prints tau
+  print "pi is wrong! tau is approximately " calc_tau();
+}
+
+# usage: deg_to_rad(degrees)
+# converts degrees to radians
+BEGIN {
+  # convert 90 degrees to radians
+  print "90 degrees is " deg_to_rad(90) " radians";
+}
+
+# usage: rad_to_deg(radians)
+# converts radians to degrees
+BEGIN {
+  # convert pi radians to degrees
+  print "pi radians is " rad_to_deg(calc_pi()) " degrees";
+}
+
+# usage: tan(expr)
+# returns the tangent of expr, which is in radians
+BEGIN {
+  # print the tangent of pi radians
+  print "the tan of pi radians is " tan(calc_pi());
+}
+
+# usage: csc(expr)
+# returns the cosecant of expr, which is in radians
+BEGIN {
+  # print the cosecant of pi radians
+  print "the csc of pi radians is " csc(calc_pi());
+}
+
+# usage: sec(expr)
+# returns the secant of expr, which is in radians
+BEGIN {
+  # print the secant of pi radians
+  print "the sec of pi radians is " sec(calc_pi());
+}
+
+# usage: cot(expr)
+# returns the cotangent of expr, which is in radians
+BEGIN {
+ # print the cotangent of pi radians
+  print "the cot of pi radians is " cot(calc_pi());
+}

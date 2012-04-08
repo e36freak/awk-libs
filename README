@@ -18,6 +18,9 @@ I recommend adding the location of this repo to the AWKPATH environment
 variable (if you're using gawk), so using -f and gawk's @include doesn't
 require the actual path to the library.
 
+The 'examples' directory includes a sample script for each library, with sample
+usage of each function. The examples are written with gawk extensions.
+
 
 Libraries, and the available functions within:
 
@@ -53,6 +56,7 @@ math.awk **
 
   calc_tau() **
     returns tau, with an accuracy of 10 decimal places
+    http://tauday.com/tau-manifesto
 
   deg_to_rad(degrees) **
     converts degrees to radians
@@ -154,7 +158,8 @@ options.awk **
     provided, "longopt_array" is the name of an associative array that maps long
     options to the appropriate short option. (do not include the hyphens on
     either).
-    sample usage can be found at http://auriga.kiwilight.com/~freak/awk_getopts
+    sample usage can be found in the examples dir, with gawk extensions, or in
+    the ogrep script for a POSIX example: https://github.com/e36freak/ogrep
 
 
 

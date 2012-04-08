@@ -1,0 +1,132 @@
+#!/bin/awk -f
+
+# include library. gawk can use AWKPATH so the actual path isn't needed, see
+# the man page
+@include "../strings.awk";
+
+# usage: center(string)
+# returns "string" centered based on terminal width, when stdout is a
+# terminal. otherwise, assumes an 80 col width when centering.
+BEGIN {
+  print center("this string is centered");
+
+  print "";
+}
+
+# usage: ssub(ere, repl[, in])
+# behaves like sub, except returns the result and doesn't modify the original
+BEGIN {
+  string = "this is some string";
+
+  print "ssub: ";
+  print "";
+
+  print string;
+  print ssub("str.*", "replaced &", string);
+  print string;
+
+  print "";
+}
+
+# usage: sgsub(ere, repl[, in])
+# behaves like gsub, except returns the result and doesn't modify the original
+BEGIN {
+  string = "this is some search string search";
+
+  print "sgsub: ";
+  print "";
+
+  print string;
+  print sgsub("search", "replace", string);
+  print string;
+
+  print "";
+}
+
+# usage: lsub(str, repl [, in])
+# substites the string "repl" in place of the first instance of "str" in the
+# string "in" and returns the result. does not modify the original string.
+# if "in" is not provided, uses $0.
+BEGIN {
+  string = "string with special .* characters";
+
+  print "lsub: ";
+  print "";
+
+  print string;
+  print lsub(".*", "literal", string);
+  print string;
+
+  print "";
+}
+
+# usage: glsub(str, repl [, in])
+# behaves like lsub, except it replaces all occurances of "str"
+BEGIN {
+  string = "string with .* special .* characters";
+
+  print "glsub: ";
+  print "";
+
+  print string;
+  print glsub(".*", "literal", string);
+  print string;
+
+  print "";
+}
+
+# usage: shell_escape(string)
+# returns the string escaped so that it can be used in a shell command
+BEGIN {
+  file = "some 'filename' with * special characters to be used in system()";
+
+  print "shell escape:"
+  print "";
+  print "first is normal, second escaped: ";
+  print file;
+  print shell_escape(file);
+  print "";
+}
+
+# usage: str_to_arr(string, array)
+# converts string to an array, one char per element, 1-indexed
+# returns the array length
+BEGIN {
+  string = "some string";
+
+  print "str_to_arr:";
+  print "";
+
+  print "initial string: ";
+  print string;
+  print "";
+
+  print "one character per line:"
+  len = str_to_arr(string, array);
+
+  for (i=1; i<=len; i++) {
+    print array[i];
+  }
+
+  print "";
+}
+
+# usage: trim(string)
+# returns "string" with leading and trailing whitespace trimmed
+BEGIN {
+  string = "      whitespace      ";
+
+  print "normal: <" string ">";
+  print "after trim(): <" trim(string) ">";
+
+  print "";
+}
+
+# usage: rev(string)
+# returns "string" backwards
+BEGIN {
+  string = "forwards";
+
+  print "normal: " string;
+  print "after rev(): " rev(string);
+}
