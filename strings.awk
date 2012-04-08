@@ -1,5 +1,23 @@
 #!/bin/awk -f
 
+## usage: center(string)
+## returns "string" centered based on terminal width, when stdout is a
+## terminal. otherwise, assumes an 80 col width when centering.
+function center(str,    cols, tty, off, cmd) {
+  # checks if stdout is a tty
+  if (system("test -t 1")) {
+    cols=80
+  } else {
+    cmd = "tput cols";
+    cmd | getline cols;
+    close(cmd);
+  }
+
+  off = ((cols/2) + (length(str)/2));
+  print cols, off;
+  return sprintf("%*s", off, str);
+}
+
 ## usage: ssub(ere, repl[, in])
 ## behaves like sub, except returns the result and doesn't modify the original
 function ssub(ere, repl, str) {

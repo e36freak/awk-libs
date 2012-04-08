@@ -23,12 +23,21 @@ math.awk
     be used interchangeably to represent numbers between 10 and 35.
     returns 0 if any argument is invalid
 
-  calc_pi()
-    returns pi, with an accuracy of 10 decimal places
-
   calc_e()
     approximates e by calculating the sumation from k=0 to k=50 of 1/k!
     returns 10 decimal places
+
+  calc_pi()
+    returns pi, with an accuracy of 10 decimal places
+
+  calc_tau()
+    returns tau, with an accuracy of 10 decimal places
+
+  deg_to_rad(degrees)
+    converts degrees to radians
+
+  rad_to_deg(radians)
+    converts radians to degrees
 
 
 

@@ -115,12 +115,6 @@ function round(mult, num,    r) {
   }
 }
 
-## usage: calc_pi()
-## returns pi, with an accuracy of 10 decimal places
-function calc_pi() {
-  return sprintf("%0.10f", 4 * atan2(1, 1));
-}
-
 ## usage: calc_e()
 ## approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 ## returns 10 decimal places
@@ -139,3 +133,31 @@ function calc_e(lim,    e, k, i, f) {
   return sprintf("%0.10f", e);
 }
 
+
+## usage: calc_pi()
+## returns pi, with an accuracy of 10 decimal places
+function calc_pi() {
+  return sprintf("%0.10f", 4 * atan2(1, 1));
+}
+
+## usage: calc_tau()
+## returns tau, with an accuracy of 10 decimal places
+function calc_tau() {
+  return sprintf("%0.10f", 8 * atan2(1, 1));
+}
+
+## usage: deg_to_rad(degrees)
+## converts degrees to radians
+function deg_to_rad(deg,    tau) {
+  tau = 8 * atan2(1,1);
+
+  return (deg/360) * tau;
+}
+
+## usage: rad_to_deg(radians)
+## converts radians to degrees
+function rad_to_deg(rad,    tau) {
+  tau = 8 * atan2(1,1);
+
+  return (rad/tau) * 360;
+}
