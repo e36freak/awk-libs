@@ -22,7 +22,10 @@ to -f and @include, instead of having to supply the actual path to the library.
 
 
 The 'examples' directory includes a sample script for each library, with sample
-usage of each function. The examples are written with gawk extensions.
+usage of each function. While most of the examples are solely there to give
+examples, the "cfold" script is fully functioning and is (in my opinion) rather
+useful. The examples are written with gawk extensions. Making them POSIX is
+left as an exercise to the user, if desired.
 
 
 
@@ -169,12 +172,12 @@ options.awk **
     error message and return "?". returns each option as it's read, and -1 when
     no options are left. "optind" will be set to the index of the next
     non-option argument when finished.  "optarg" will be set to the option's
-    argument, if provided. if not provided, "optarg" will be empty.  getopts
-    will delete each option and argument that it successfully reads, so awk will
-    be able to treat whatever's left as filenames/assignments, as usual. if
-    provided, "longopt_array" is the name of an associative array that maps long
-    options to the appropriate short option. (do not include the hyphens on
-    either).
+    argument, when provided. if not provided, "optarg" will be empty. "optname"
+    will be set to the current option, as provided. getopts will delete each
+    option and argument that it successfully reads, so awk will be able to treat
+    whatever's left as filenames/assignments, as usual. if provided,
+    "longopt_array" is the name of an associative array that maps long options
+    to the appropriate short option. (do not include the hyphens on either).
     sample usage can be found in the examples dir, with gawk extensions, or in
     the ogrep script for a POSIX example: https://github.com/e36freak/ogrep
 

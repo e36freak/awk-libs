@@ -8,13 +8,14 @@
 ## error message and return "?". returns each option as it's read, and -1 when
 ## no options are left. "optind" will be set to the index of the next
 ## non-option argument when finished.  "optarg" will be set to the option's
-## argument, when provided. if not provided, "optarg" will be empty. getopts
-## will delete each option and argument that it successfully reads, so awk will
-## be able to treat whatever's left as filenames/assignments, as usual. if
-## provided, "longopt_array" is the name of an associative array that maps long
-## options to the appropriate short option. (do not include the hyphens on
-## either).
-## sample usage can be found at http://auriga.kiwilight.com/~freak/awk_getopts
+## argument, when provided. if not provided, "optarg" will be empty. "optname"
+## will be set to the current option, as provided. getopts will delete each
+## option and argument that it successfully reads, so awk will be able to treat
+## whatever's left as filenames/assignments, as usual. if provided,
+## "longopt_array" is the name of an associative array that maps long options to
+## the appropriate short option. (do not include the hyphens on either).
+## sample usage can be found in the examples dir, with gawk extensions, or in
+## the ogrep script for a POSIX example: https://github.com/e36freak/ogrep
 function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
   hasarg = repeat = 0;
   # increment optind
@@ -52,6 +53,8 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     }
 
     opt = longarr[trimmed];
+    # set optname by prepending dashes to the trimmed argument
+    optname = "--" trimmed;
 
   # otherwise, it is a short option
   } else {
@@ -80,13 +83,16 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
         repeat = 1;
       }
     }
+
+    # set optname by prepending a hypen to opt
+    optname = "-" opt;
   }
 
   # if the option requires an arg and hasarg is 0
   if (index(optstring, opt ":") && !hasarg) {
     # increment optind, check if no arguments are left
     if (++optind >= ARGC) {
-      printf("option requires an argument -- '%s'\n", opt) > "/dev/stderr";
+      printf("option requires an argument -- '%s'\n", optname) > "/dev/stderr";
       return "?";
     }
 

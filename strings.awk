@@ -31,7 +31,7 @@ function center(str, cols,    off, cmd) {
 ## provided (or is 0), uses the width of the terminal, or 80 if standard output
 ## is not open on a terminal.
 ## note: currently, tabs are squeezed to a single space. this will be fixed
-function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f) {
+function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f, first) {
   if (!cols) {
     # checks if stdout is a tty
     if (system("test -t 1")) {
@@ -43,8 +43,8 @@ function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f) {
     }
   }
 
-  # squeeze tabs to spaces
-  gsub(/\t/, " ", str);
+  # squeeze tabs and newlines to spaces
+  gsub(/[\t\n]/, " ", str);
 
   # if "sep" is empty, just fold on cols with substr
   if (!length(sep)) {
@@ -62,6 +62,8 @@ function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f) {
   } else {
     # split string into char array
     len = split(str, chars, //);
+    # set boolean, used to assign the first line differently
+    first = 1;
 
     for (i=1; i<=len; i+=last) {
       f = 0;
@@ -77,9 +79,17 @@ function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f) {
         last = cols;
       }
 
-      print substr(str, i, last);
+      if (first) {
+        out = substr(str, i, last);
+        first = 0;
+      } else {
+        out = out "\n" substr(str, i, last);
+      }
     }
   }
+
+  # return the output
+  return out;
 }
 
 ## usage: ssub(ere, repl[, in])
