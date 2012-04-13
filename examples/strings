@@ -4,12 +4,38 @@
 # the man page
 @include "../strings.awk";
 
-# usage: center(string)
-# returns "string" centered based on terminal width, when stdout is a
-# terminal. otherwise, assumes an 80 col width when centering.
+# usage: center(string[, width])
+# returns "string" centered based on "width". if "width" is not provided (or 
+# is 0), uses the width of the terminal, or 80 if standard output is not open
+# on a terminal.
+# note: does not check the length of the string. if it's wider than the
+# terminal, it will not center lines other than the first. for best results,
+# combine with fold().
 BEGIN {
   print center("this string is centered");
 
+  print "";
+}
+
+# usage: fold(string, sep[, width])
+# returns "string", wrapped, with lines broken on "sep" to "width" columns.
+# "sep" is a list of characters to break at, similar to IFS in a POSIX shell.
+# if "sep" is empty, wraps at exactly "width" characters. if "width" is not
+# provided (or is 0), uses the width of the terminal, or 80 if standard output
+# is not open on a terminal.
+# note: currently, tabs are squeezed to a single space. this will be fixed
+BEGIN {
+  # folds the alphabet on vowels, to 12 and 15 characters
+  alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  print "alphabet, folded to 12 characters on vowels:";
+  print "";
+  print fold(alphabet, "AEIOU", 12);
+  print "";
+
+  print "alphabet, folded to 15 characters on vowels:";
+  print "";
+  print fold(alphabet, "AEIOU", 15);
   print "";
 }
 

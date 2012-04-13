@@ -1,21 +1,85 @@
 #!/bin/awk -f
 
-## usage: center(string)
-## returns "string" centered based on terminal width, when stdout is a
-## terminal. otherwise, assumes an 80 col width when centering.
-function center(str,    cols, tty, off, cmd) {
-  # checks if stdout is a tty
-  if (system("test -t 1")) {
-    cols=80
-  } else {
-    cmd = "tput cols";
-    cmd | getline cols;
-    close(cmd);
+## usage: center(string[, width])
+## returns "string" centered based on "width". if "width" is not provided (or 
+## is 0), uses the width of the terminal, or 80 if standard output is not open
+## on a terminal.
+## note: does not check the length of the string. if it's wider than the
+## terminal, it will not center lines other than the first. for best results,
+## combine with fold().
+function center(str, cols,    off, cmd) {
+  if (!cols) {
+    # checks if stdout is a tty
+    if (system("test -t 1")) {
+      cols = 80;
+    } else {
+      cmd = "tput cols";
+      cmd | getline cols;
+      close(cmd);
+    }
   }
 
   off = int((cols/2) + (length(str)/2));
 
   return sprintf("%*s", off, str);
+}
+
+## usage: fold(string, sep[, width])
+## returns "string", wrapped, with lines broken on "sep" to "width" columns.
+## "sep" is a list of characters to break at, similar to IFS in a POSIX shell.
+## if "sep" is empty, wraps at exactly "width" characters. if "width" is not
+## provided (or is 0), uses the width of the terminal, or 80 if standard output
+## is not open on a terminal.
+## note: currently, tabs are squeezed to a single space. this will be fixed
+function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f) {
+  if (!cols) {
+    # checks if stdout is a tty
+    if (system("test -t 1")) {
+      cols = 80;
+    } else {
+      cmd = "tput cols";
+      cmd | getline cols;
+      close(cmd);
+    }
+  }
+
+  # squeeze tabs to spaces
+  gsub(/\t/, " ", str);
+
+  # if "sep" is empty, just fold on cols with substr
+  if (!length(sep)) {
+    len = length(str);
+
+    out = substr(str, 1, cols);
+    for (i=cols+1; i<=len; i+=cols) {
+      out = out "\n" substr(str, i, cols);
+    }
+
+    return out;
+
+  # otherwise, we have to loop over every character (can't split() on sep, it
+  # would destroy the existing separators)
+  } else {
+    # split string into char array
+    len = split(str, chars, //);
+
+    for (i=1; i<=len; i+=last) {
+      f = 0;
+      for (c=i+cols-1; c>=i; c--) {
+        if (index(sep, chars[c])) {
+          last = c - i + 1;
+          f = 1;
+          break;
+        }
+      }
+
+      if (!f) {
+        last = cols;
+      }
+
+      print substr(str, i, last);
+    }
+  }
 }
 
 ## usage: ssub(ere, repl[, in])
