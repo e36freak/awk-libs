@@ -6,7 +6,8 @@
 ## on a terminal.
 ## note: does not check the length of the string. if it's wider than the
 ## terminal, it will not center lines other than the first. for best results,
-## combine with fold().
+## combine with fold() (see the cfold script in the examples directory for a
+## script that does exactly this)
 function center(str, cols,    off, cmd) {
   if (!cols) {
     # checks if stdout is a tty
@@ -22,6 +23,12 @@ function center(str, cols,    off, cmd) {
   off = int((cols/2) + (length(str)/2));
 
   return sprintf("%*s", off, str);
+}
+
+## usage: delete_arr(array)
+## deletes every element in "array"
+function delete_arr(arr) {
+  split("", arr);
 }
 
 ## usage: fold(string, sep[, width])
