@@ -3,9 +3,10 @@
 # example usage of getopts() from http://github.com/e36freak/awk-libs
 
 # include the lib with getopts. the path to the lib is not needed here if the
-# directory is in AWKPATH, on gawk. otherwise, use the path to the lib, or copy
-# and paste the whole function here.
-@include "../options.awk";
+# directory is in AWKPATH, on gawk (this examples assumes it is, or that the
+# lib is in the current working dir). otherwise, use the path to the lib, or
+# copy and paste the whole function here.
+@include "options.awk";
 
 # prints usage information
 # to see this, make sure you use ./script -- -h. without the '--', awk will

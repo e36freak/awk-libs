@@ -80,3 +80,15 @@ function sec_to_hr(sec,    m, s) {
 
   return sprintf("%02d:%02d:%02d", sec, m, s);
 }
+
+## usage: ms_to_hr(milliseconds)
+## converts milliseconds to a "time(1)"-similar human readable format, such
+## as 1m4.356s
+function ms_to_hr(ms,    m, s, ns) {
+  ms = ms / 1000;
+  s = int(ms);
+  m = int(s / 60);
+  ns = s % 60;
+
+  return sprintf("%dm%0.3fs", m, ns + (ms - s));
+}

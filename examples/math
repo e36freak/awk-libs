@@ -1,8 +1,9 @@
 #!/bin/awk -f
 
 # include library. gawk can use AWKPATH so the actual path isn't needed, see
-# the man page
-@include "../math.awk";
+# the man page (since the path is relative, this assumes the lib dir is in
+# AWKPATH or the same dir)
+@include "math.awk";
 
 # usage: ceil(multiple, number)
 # returns "number" rounded UP to the nearest multiple of "multiple"

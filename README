@@ -204,6 +204,9 @@ times.awk **
   sec_to_hr(seconds) **
     converts seconds to HH:MM:SS
 
+  ms_to_hr(milliseconds) **
+    converts milliseconds to a "time(1)"-similar human readable format, such
+    as 1m4.356s
 
 
 
