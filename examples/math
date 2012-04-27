@@ -47,6 +47,32 @@ BEGIN {
   print change_base("1f", 16, 10);
 }
 
+# usage: isnum(string)
+# returns 1 if "string" is a valid number, otherwise 0
+BEGIN {
+  var = "3";
+  if (isnum(var)) {
+    print var " is a valid number";
+  } else {
+    print var " is not a valid number";
+  }
+
+
+  var = "1.34";
+  if (isnum(var)) {
+    print var " is a valid number";
+  } else {
+    print var " is not a valid number";
+  }
+
+  var = "foo";
+  if (isnum(var)) {
+    print var " is a valid number";
+  } else {
+    print var " is not a valid number";
+  }
+}
+
 # usage: calc_e()
 # approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 # returns 10 decimal places

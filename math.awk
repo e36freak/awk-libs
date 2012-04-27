@@ -115,6 +115,12 @@ function round(mult, num,    r) {
   }
 }
 
+## usage: isnum(string)
+## returns 1 if "str" is a valid number, otherwise 0
+function isnum(str) {
+  return str == str + 0;
+}
+
 ## usage: calc_e()
 ## approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 ## returns 10 decimal places

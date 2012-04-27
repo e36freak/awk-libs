@@ -1,20 +1,20 @@
 #!/bin/awk -f
 
 ## usage: getopts(optstring [, longopt_array ])
-## parses options, and deletes them from ARGV. "optstring" is of the form
-## "ab:c". each letter is a possible option. if the letter is followed by a
-## colon (:), then the option requires an argument. if an argument is not
+## Parses options, and deletes them from ARGV. "optstring" is of the form
+## "ab:c". Each letter is a possible option. If the letter is followed by a
+## colon (:), then the option requires an argument. If an argument is not
 ## provided, or an invalid option is given, getopts will print the appropriate
-## error message and return "?". returns each option as it's read, and -1 when
+## error message and return "?". Returns each option as it's read, and -1 when
 ## no options are left. "optind" will be set to the index of the next
-## non-option argument when finished.  "optarg" will be set to the option's
-## argument, when provided. if not provided, "optarg" will be empty. "optname"
-## will be set to the current option, as provided. getopts will delete each
+## non-option argument when finished. "optarg" will be set to the option's
+## argument, when provided. If not provided, "optarg" will be empty. "optname"
+## will be set to the current option, as provided. Getopts will delete each
 ## option and argument that it successfully reads, so awk will be able to treat
-## whatever's left as filenames/assignments, as usual. if provided,
+## whatever's left as filenames/assignments, as usual. If provided,
 ## "longopt_array" is the name of an associative array that maps long options to
-## the appropriate short option. (do not include the hyphens on either).
-## sample usage can be found in the examples dir, with gawk extensions, or in
+## the appropriate short option (do not include the hyphens on either).
+## Sample usage can be found in the examples dir, with gawk extensions, or in
 ## the ogrep script for a POSIX example: https://github.com/e36freak/ogrep
 function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
   hasarg = repeat = 0;

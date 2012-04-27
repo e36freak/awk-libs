@@ -56,6 +56,9 @@ math.awk **
     be used interchangeably to represent numbers between 10 and 35. integers
     only. returns 0 if any argument is invalid
 
+  isnum(string) **
+    returns 1 if "string" is a valid number, otherwise 0
+
   calc_e() **
     approximates e by calculating the sumation from k=0 to k=50 of 1/k!
     returns 10 decimal places
