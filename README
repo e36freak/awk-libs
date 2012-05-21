@@ -200,6 +200,7 @@ times.awk **
   day_to_num(day) **
     converts human readable day to the decimal representation
     returns the number, -1 if the day doesn't exist
+    like date +%w, sunday is 0
 
   hr_to_sec(timestamp) **
     converts HH:MM:SS to seconds, returns -1 if invalid format

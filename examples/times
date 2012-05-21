@@ -16,6 +16,7 @@ BEGIN {
 # usage: day_to_num(day)
 # converts human readable day to the decimal representation
 # returns the number, -1 if the day doesn't exist
+# like date +%w, sunday is 0
 BEGIN {
   print "day_to_num(\"Monday\"): " day_to_num("Monday");
   print "day_to_num(\"Mon\"): " day_to_num("Mon");

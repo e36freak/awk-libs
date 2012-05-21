@@ -29,15 +29,16 @@ function month_to_num(mon,    months, m) {
 ## usage: day_to_num(day)
 ## converts human readable day to the decimal representation
 ## returns the number, -1 if the day doesn't exist
+## like date +%w, sunday is 0
 function day_to_num(day,    days, d) {
   # populate days[] array
-    days["sunday"]    = 1; days["monday"]   = 2; days["tuesday"] = 3;
-    days["wednesday"] = 4; days["thursday"] = 5; days["friday"]  = 6;
-    days["saturday"]  = 7;
+    days["sunday"]    = 0; days["monday"]   = 1; days["tuesday"] = 2;
+    days["wednesday"] = 3; days["thursday"] = 4; days["friday"]  = 5;
+    days["saturday"]  = 6;
 
   # also populate abbreviations
-    days["sun"]   = 1; days["mon"] = 2; days["tues"] = 3; days["wed"] = 4;
-    days["thurs"] = 5; days["fri"] = 6; days["sat"]  = 7;
+    days["sun"]   = 0; days["mon"] = 1; days["tues"] = 2; days["wed"] = 3;
+    days["thurs"] = 4; days["fri"] = 5; days["sat"]  = 6;
 
   # convert day to lowercase
     day = tolower(day);
