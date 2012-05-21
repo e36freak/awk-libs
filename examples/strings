@@ -102,7 +102,7 @@ BEGIN {
   print "";
 }
 
-# usage: shell_escape(string)
+# usage: shell_esc(string)
 # returns the string escaped so that it can be used in a shell command
 BEGIN {
   file = "some 'filename' with * special characters to be used in system()";
@@ -111,7 +111,7 @@ BEGIN {
   print "";
   print "first is normal, second escaped: ";
   print file;
-  print shell_escape(file);
+  print shell_esc(file);
   print "";
 }
 

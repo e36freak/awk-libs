@@ -112,7 +112,7 @@ strings.awk *
     is not open on a terminal.
     note: currently, tabs are squeezed to a single space. this will be fixed
 
-  shell_escape(string) **
+  shell_esc(string) **
     returns the string escaped so that it can be used in a shell command
 
   ssub(ere, repl [, in]) **

@@ -184,9 +184,9 @@ function glsub(str, rep, val,    out, len, i, a, l) {
   return out val;
 }
 
-## usage: shell_escape(string)
+## usage: shell_esc(string)
 ## returns the string escaped so that it can be used in a shell command
-function shell_escape(str) {
+function shell_esc(str) {
   gsub(/'/, "'\\''", str);
 
   return "'" str "'";
