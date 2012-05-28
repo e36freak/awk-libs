@@ -61,7 +61,7 @@ function change_base(num, ibase, obase,
       }
 
       # check to make sure value isn't too great for base
-      if (c >= ibase) {
+      if (c + 0 >= ibase) {
         return 0;
       }
 
