@@ -214,6 +214,23 @@ times.awk **
 
 
 
+colors.awk **
+  set_cols() **
+    sets the following variables with tput. printing them will format any
+    text afterwards. colors and formats are:
+      bold - bold text (can be combined with a color)
+      black - black text
+      red - red text
+      green - green text
+      yellow - yellow text
+      blue - blue text
+      magenta - magenta text
+      cyan - cyan text
+      white - white text
+      reset - resets to default settings
+
+
+
 
 Copywrite Daniel Mills <danielmills1@gmail.com>
 
