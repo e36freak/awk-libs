@@ -118,6 +118,9 @@ function round(mult, num,    r) {
 ## usage: isnum(string)
 ## returns 1 if "str" is a valid number, otherwise 0
 function isnum(str) {
+  # trim leading zeroes, otherwise the test will be false if they exist
+  gsub(/^0+/, "", str);
+
   return str == str + 0;
 }
 
