@@ -177,10 +177,12 @@ function round(mult, num,    r) {
 ## usage: isnum(string)
 ## returns 1 if "str" is a valid number, otherwise 0
 function isnum(str) {
-  # trim leading zeroes, otherwise the test will be false if they exist
-  gsub(/^0+/, "", str);
+  # use a regex comparison because 'num == num + 0' has issues with some floats
+  if (num ~ /[^0-9.]/ || num ~ /\..*\./) {
+    return 0;
+  }
 
-  return str == str + 0;
+  return 1;
 }
 
 ## usage: calc_e()
