@@ -56,6 +56,12 @@ math.awk **
     be used interchangeably to represent numbers between 10 and 35. integers
     only. returns 0 if any argument is invalid
 
+  format_num(number) **
+    adds commas to "number" to make it more readable. for example,
+    format_num(1000) will return "1,000", and format_num(123456.7890) will
+    return "123,456.7890". also trims leading zeroes
+    returns 0 if "number" is not a valid number
+
   isnum(string) **
     returns 1 if "string" is a valid number, otherwise 0
 

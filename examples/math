@@ -47,6 +47,19 @@ BEGIN {
   print change_base("1f", 16, 10);
 }
 
+# usage: format_num(number)
+# adds commas to "number" to make it more readable. for example,
+# format_num(1000) will return "1,000", and format_num(123456.7891) will
+# return "123,456.7891". also trims leading zeroes
+# returns 0 if "number" is not a valid number
+BEGIN {
+  num = "1000";
+  printf("unformatted: %s\nformatted: %s\n\n", num, format_num(num));
+
+  num = "123456.7891";
+  printf("unformatted: %s\nformatted: %s\n\n", num, format_num(num));
+}
+
 # usage: isnum(string)
 # returns 1 if "string" is a valid number, otherwise 0
 BEGIN {

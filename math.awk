@@ -99,6 +99,65 @@ function change_base(num, ibase, obase,
   return fin;
 }
 
+## usage: format_num(number)
+## adds commas to "number" to make it more readable. for example,
+## format_num(1000) will return "1,000", and format_num(123456.7890) will
+## return "123,456.7890". also trims leading zeroes
+## returns 0 if "number" is not a valid number
+function format_num(num,    is_float, b, e, i, len, r, out) {
+  # trim leading zeroes
+  sub(/^0+/, "", num);
+
+  # make sure "num" is a valid number
+  if (num ~ /[^0-9.]/ || num ~ /\..*\./) {
+    return 0;
+  }
+  
+  # if "num" is not an int, split it into pre and post decimal parts.
+  # use sub() instead of int() because int() can be funny for float arithmetic
+  # results
+  if (num ~ /\./) {
+    is_float = 1; # flag "num" as a float
+    b = e = num;
+    sub(/\..*/, "", b);
+    sub(/.*\./, "", e);
+
+  # otherwise, just assign the number to "b"
+  } else {
+    is_float = 0;
+    b = num;
+  }
+
+  len = length(b)
+
+  # only do anything if the pre-decimal section is greater than 3 digits
+  if (len < 3) {
+    return num;
+  }
+
+  # start by assigning the last 3 pre-decimal digits to out
+  out = substr(b, len - 2);
+
+  # loop backwards over each grouping of 3 numbers after that, prepending
+  # each to out (with a comma)
+  for (i=len-5; i>0; i-=3) {
+    out = substr(b, i, 3) "," out;
+  }
+
+  # if the length is not a multiple of 3, prepend the remaining digits
+  if (r = len % 3) {
+    out = substr(b, 1, r) "," out;
+  }
+
+  # if number was a float, add the post-decimal digits back on
+  if (is_float) {
+    out = out "." e;
+  }
+
+  # return the formatted number
+  return out;
+}
+
 ## usage: floor(multiple, number)
 ## returns "number" rounded DOWN to the nearest multiple of "multiple"
 function floor(mult, num) {
