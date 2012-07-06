@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: month_to_num(month)
 ## converts human readable month to the decimal representation

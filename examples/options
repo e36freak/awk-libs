@@ -1,4 +1,4 @@
-#!/bin/gawk -f
+#!/usr/bin/gawk -f
 
 # example usage of getopts() from http://github.com/e36freak/awk-libs
 

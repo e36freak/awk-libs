@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: set_cols() **
 ##   sets the following variables with tput. printing them will format any

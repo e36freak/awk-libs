@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: ceil(multiple, number)
 ## returns "number" rounded UP to the nearest multiple of "multiple"

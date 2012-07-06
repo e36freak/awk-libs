@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: center(string[, width])
 ## returns "string" centered based on "width". if "width" is not provided (or 

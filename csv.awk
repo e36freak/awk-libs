@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: create_line(array, max [, sep [, qualifier] ])
 ## Generates an output line in quoted CSV format, from the contents of "array"

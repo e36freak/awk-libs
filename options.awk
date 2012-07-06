@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 ## usage: getopts(optstring [, longopt_array ])
 ## Parses options, and deletes them from ARGV. "optstring" is of the form
