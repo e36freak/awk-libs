@@ -5,6 +5,14 @@
 # AWKPATH or the same dir)
 @include "math.awk";
 
+# usage: abs(number)
+# returns the absolute value of "number"
+BEGIN {
+  print abs(-2.3);
+  print abs(0);
+  print abs(2.3);
+}
+
 # usage: ceil(multiple, number)
 # returns "number" rounded UP to the nearest multiple of "multiple"
 BEGIN {
