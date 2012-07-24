@@ -220,6 +220,11 @@ times.awk **
     converts milliseconds to a "time(1)"-similar human readable format, such
     as 1m4.356s
 
+  add_day_suff(day_of_month) **
+    prepends the appropriate suffix to "day_of_month". for example,
+    add_day_suff(1) will return "1st", and add_day_suff(22) will return "22nd"
+    returns -1 if "day_of_month" is not a positive integer
+
 
 
 colors.awk **

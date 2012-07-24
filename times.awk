@@ -93,3 +93,26 @@ function ms_to_hr(ms,    m, s, ns) {
 
   return sprintf("%dm%0.3fs", m, ns + (ms - s));
 }
+
+## usage: add_day_suff(day_of_month)
+## prepends the appropriate suffix to "day_of_month". for example,
+## add_day_suff(1) will return "1st", and add_day_suff(22) will return "22nd"
+## returns -1 if "day_of_month" is not a positive integer
+function add_day_suff(day) {
+  # make sure day is a positive int
+  if (day !~ /^[0-9]+$/ || day <= 0) {
+    return -1;
+  }
+
+  # append prefix
+  if ((day > 3 && day < 21) || day ~ /[04-9]$/) {
+    return day "th";
+  } else if (day ~ /1$/) {
+    return day "st";
+  } else if (day ~ /2$/) {
+    return day "nd";
+  } else {
+    return day "rd";
+  }
+}
+
