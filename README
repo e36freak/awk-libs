@@ -38,7 +38,10 @@ math.awk **
   abs(number) **
     returns the absolute value of "number"
 
-  ceil(multiple, number) **
+  ceil(number) **
+    returns "number" rounded UP to the nearest int
+
+  ceiling(multiple, number) **
     returns "number" rounded UP to the nearest multiple of "multiple". integers
     only
 
