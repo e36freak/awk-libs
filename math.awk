@@ -6,9 +6,19 @@ function abs(num) {
   return num < 0 ? -num : num;
 }
 
-## usage: ceil(multiple, number)
+## usage: ceil(number)
+## returns "number" rounded UP to the nearest int
+function ceil(num) {
+  if (num < 0) {
+    return int(num);
+  } else {
+    return int(num) + (num == int(num) ? 0 : 1);
+  }
+}
+
+## usage: ceiling(multiple, number)
 ## returns "number" rounded UP to the nearest multiple of "multiple"
-function ceil(mult, num,    r) {
+function ceiling(mult, num,    r) {
   return (r = num % mult) ? num + (mult - r) : num;
 }
 

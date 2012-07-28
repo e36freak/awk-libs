@@ -13,11 +13,18 @@ BEGIN {
   print abs(2.3);
 }
 
-# usage: ceil(multiple, number)
+# usage: ceil(number)
+# returns "number" rounded UP to the nearest int
+BEGIN {
+  print ceil(2.3);
+  print ceil(-2.3);
+}
+
+# usage: ceiling(multiple, number)
 # returns "number" rounded UP to the nearest multiple of "multiple"
 BEGIN {
   # nearest multiple of 5 above 6 is 10
-  print ceil(5, 6);
+  print ceiling(5, 6);
 }
 
 # usage: floor(multiple, number)
