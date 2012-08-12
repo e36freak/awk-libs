@@ -67,6 +67,9 @@ math.awk **
     return "123,456.7890". also trims leading zeroes
     returns 0 if "number" is not a valid number
 
+  isint(string) **
+    returns 1 if "string" is a valid integer, otherwise 0
+
   isnum(string) **
     returns 1 if "string" is a valid number, otherwise 0
 

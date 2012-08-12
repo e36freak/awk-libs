@@ -75,6 +75,32 @@ BEGIN {
   printf("unformatted: %s\nformatted: %s\n\n", num, format_num(num));
 }
 
+# usage: isint(string)
+# returns 1 if "string" is a valid integer, otherwise 0
+BEGIN {
+  var = "3";
+  if (isint(var)) {
+    print var " is a valid integer";
+  } else {
+    print var " is not a valid integer";
+  }
+
+
+  var = "1.34";
+  if (isint(var)) {
+    print var " is a valid integer";
+  } else {
+    print var " is not a valid integer";
+  }
+
+  var = "foo";
+  if (isint(var)) {
+    print var " is a valid integer";
+  } else {
+    print var " is not a valid integer";
+  }
+}
+
 # usage: isnum(string)
 # returns 1 if "string" is a valid number, otherwise 0
 BEGIN {

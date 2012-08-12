@@ -190,11 +190,21 @@ function round(mult, num,    r) {
   }
 }
 
+## usage: isint(string)
+## returns 1 if "string" is a valid integer, otherwise 0
+function isint(str) {
+  if (str !~ /^-?[0-9]+$/) {
+    return 0;
+  }
+
+  return 1;
+}
+
 ## usage: isnum(string)
-## returns 1 if "str" is a valid number, otherwise 0
+## returns 1 if "string" is a valid number, otherwise 0
 function isnum(str) {
-  # use a regex comparison because 'num == num + 0' has issues with some floats
-  if (num ~ /[^0-9.]/ || num ~ /\..*\./) {
+  # use a regex comparison because 'str == str + 0' has issues with some floats
+  if (str !~ /^-?[0-9.]+$/ || str ~ /\..*\./) {
     return 0;
   }
 
