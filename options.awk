@@ -18,7 +18,7 @@
 ## the ogrep script for a POSIX example: https://github.com/e36freak/ogrep
 function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
   hasarg = repeat = 0;
-  delete optarg;
+  optarg = "";
   # increment optind
   optind++;
 
