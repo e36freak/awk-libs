@@ -104,6 +104,13 @@ math.awk **
 
 
 
+std.awk **
+  isatty(fd) **
+    Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
+    error occurs
+
+
+
 strings.awk *
 
   center(string[, width]) **
