@@ -3,7 +3,7 @@
 # include library. gawk can use AWKPATH so the actual path isn't needed, see
 # the man page (since the path is relative, this assumes the lib dir is in
 # AWKPATH or the same dir)
-@include "math.awk";
+@include "sys.awk";
 
 # usage: isatty(fd) **
 # Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
