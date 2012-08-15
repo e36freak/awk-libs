@@ -79,9 +79,6 @@ function mktemp(template, type,
   # get the base of the template, sans Xs
   template = substr(template, 0, length(template) - 6);
   
-  # seed the random number generator
-  srand();
-
   # generate the filename
   do {
     rstring = "";
