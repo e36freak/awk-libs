@@ -175,6 +175,47 @@ strings.awk *
 
 
 
+sort.awk **
+  qsort(s, d [, how]) **
+    sorts the elements in the array "s" using awk's normal rules for comparing
+    values, creating a new sorted array "d" with sequential integers starting
+    with 1. returns the length, or -1 if an error occurs.. leaves the indices of
+    the source array "s" unchanged. the optional string "how" controls the
+    direction and the comparison mode. uses the quick sort algorithm, with a
+    random pivot to avoid worst-case behavior on already sorted arrays.
+    valid values for "how" are:
+      "std asc"
+        use awk's standard rules for comparison, ascending. this is the default
+      "std desc"
+        use awk's standard rules for comparison, descending.
+      "str asc"
+        force comparison as strings, ascending.
+      "str desc"
+        force comparison as strings, descending.
+      "num asc"
+        force a numeric comparison, ascending.
+      "num asc"
+        force a numeric comparison, descending.
+
+  iqsort(s [, how]) **
+    the bevavior is the same as that of qsort(), except that the array "s" is
+    sorted in-place. the original indices are destroyed and replaced with
+    sequential integers. everything else is described in qsort() above.
+
+  qsorti(s, d [, how]) **
+    the behavior is the same as that of qsort(), except that the array indices
+    are used for sorting, not the array values. when done, the new array is
+    indexed numerically, and the values are those of the original indices.
+    everything else is described in qsort() above.
+
+  iqsorti(s [, how]) **
+    the bevavior is the same as that of qsorti(), except that the array "s" is
+    sorted in-place. the original indices are destroyed and replaced with
+    sequential integers. everything else is described in qsort() and qsorti()
+    above.
+
+
+
 csv.awk *
 
   create_line(array, max [, sep [, qualifier] ]) **
@@ -266,10 +307,6 @@ colors.awk **
       reset - resets to default settings
 
 
-
-
-TODO:
-  add POSIX compliant sorting functions
 
 Copyright Daniel Mills <danielmills1@gmail.com>
 
