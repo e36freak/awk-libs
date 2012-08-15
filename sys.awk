@@ -102,14 +102,14 @@ function mktemp(template, type,
     cmd | getline umask;
     close(cmd);
     umask = substr(umask, 2, 1);
-    system("chmod " 6 - umask "00 " out_esc);
+    system("chmod 0" 6 - umask "00 " out_esc);
   } else if (type == "d") {
     system("mkdir " out_esc);
     cmd = "umask";
     cmd | getline umask;
     close(cmd);
     umask = substr(umask, 2, 1);
-    system("chmod " 7 - umask "00 " out_esc);
+    system("chmod 0" 7 - umask "00 " out_esc);
   }
 
   # return the filename
