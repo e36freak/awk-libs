@@ -109,6 +109,15 @@ sys.awk **
     Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
     error occurs
 
+  mktemp(template[, type]) **
+    creates a temporary file or directory, safely, and returns its name.
+    if template is not a pathname, the file will be created in ENVIRON["TMPDIR"]
+    if set, otherwise /tmp. the last six characters of template must be "XXXXXX",
+    and these are replaced with a string that makes the filename unique. type, if
+    supplied, is either "f", "d", or "u": for file, directory, or dry run (just
+    returns the name, doesn't create a file), respectively. If template is not
+    provided, uses "tmp.XXXXXX". returns -1 if an error occurs.
+
 
 
 strings.awk *
