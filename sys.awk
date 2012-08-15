@@ -20,9 +20,11 @@ function isatty(fd) {
 ## and these are replaced with a string that makes the filename unique. type, if
 ## supplied, is either "f", "d", or "u": for file, directory, or dry run (just
 ## returns the name, doesn't create a file), respectively. If template is not
-## provided, uses "tmp.XXXXXX". returns -1 if an error occurs.
+## provided, uses "tmp.XXXXXX". Files are created u+rw, and directories u+rwx,
+## minus umask restrictions. returns -1 if an error occurs.
 function mktemp(template, type,
-                c, chars, len, dir, dir_esc, rstring, i, out, out_esc) {
+                c, chars, len, dir, dir_esc, rstring, i, out, out_esc, umask,
+                cmd) {
   # portable filename characters
   c = "012345689ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   len = split(c, chars, //);
@@ -96,8 +98,18 @@ function mktemp(template, type,
   # if needed, create the filename
   if (type == "f") {
     system("touch " out_esc);
+    cmd = "umask";
+    cmd | getline umask;
+    close(cmd);
+    umask = substr(umask, 2, 1);
+    system("chmod " 6 - umask "00 " out_esc);
   } else if (type == "d") {
     system("mkdir " out_esc);
+    cmd = "umask";
+    cmd | getline umask;
+    close(cmd);
+    umask = substr(umask, 2, 1);
+    system("chmod " 7 - umask "00 " out_esc);
   }
 
   # return the filename

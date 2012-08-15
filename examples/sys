@@ -35,7 +35,8 @@ BEGIN {
 # and these are replaced with a string that makes the filename unique. type, if
 # supplied, is either "f", "d", or "u": for file, directory, or dry run (just
 # returns the name, doesn't create a file), respectively. If template is not
-# provided, uses "tmp.XXXXXX". returns -1 if an error occurs.
+# provided, uses "tmp.XXXXXX". Files are created u+rw, and directories u+rwx,
+# minus umask restrictions. returns -1 if an error occurs.
 BEGIN {
   print mktemp("foo.XXXXXX", "u");
   print mktemp("./bar.XXXXXX");
