@@ -178,10 +178,10 @@ strings.awk *
 sort.awk **
   qsort(s, d [, how]) **
     sorts the elements in the array "s" using awk's normal rules for comparing
-    values, creating a new sorted array "d" with sequential integers starting
-    with 1. returns the length, or -1 if an error occurs.. leaves the indices of
-    the source array "s" unchanged. the optional string "how" controls the
-    direction and the comparison mode. uses the quick sort algorithm, with a
+    values, creating a new sorted array "d" indexed with sequential integers
+    starting with 1. returns the length, or -1 if an error occurs.. leaves the
+    indices of the source array "s" unchanged. the optional string "how" controls
+    the direction and the comparison mode. uses the quick sort algorithm, with a
     random pivot to avoid worst-case behavior on already sorted arrays.
     valid values for "how" are:
       "std asc"
