@@ -29,6 +29,12 @@ is just there to parse options. These examples are written with gawk extensions.
 Making them POSIX is left as an exercise to the user, if desired.
 
 
+Most of the functions in this library work by themselves, with the exception of
+the functions in sort.awk. This means that they can easily be copy/pasted into
+a script, and will function fine on their own. In the case of sort.awk, the
+functions that the others depend on begin with '__', and which functions they
+go with are explained in the comments.
+
 
 
 
