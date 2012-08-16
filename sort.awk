@@ -32,8 +32,8 @@ function __quicksort(array, left, right, how,    piv, mid, tmp) {
     return;
   }
 
-  # use the middle index as the pivot
-  piv = int(left + (right - left) / 2);
+  # choose random pivot
+  piv = int(rand() * (right - left + 1)) + left;
 
   # swap left and pivot
   tmp = array[piv];
@@ -70,7 +70,8 @@ function __quicksort(array, left, right, how,    piv, mid, tmp) {
 ## values, creating a new sorted array "d" with sequential integers starting
 ## with 1. returns the length, or -1 if an error occurs.. leaves the indices of
 ## the source array "s" unchanged. the optional string "how" controls the
-## direction and the comparison mode. uses the quick sort algorithm.
+## direction and the comparison mode. uses the quick sort algorithm, with a
+## random pivot to avoid worst-case behavior on already sorted arrays.
 ## valid values for "how" are:
 ##   "std asc"
 ##     use awk's standard rules for comparison, ascending. this is the default
