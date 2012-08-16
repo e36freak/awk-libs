@@ -73,8 +73,8 @@ function __quicksort(array, left, right, how,    piv, mid, tmp) {
 function __shuffle(array, left, right,    r, i, tmp) {
   # loop backwards over the elements
   for (i=right; i>left; i--) {
-    # generate a random number within the range
-    r = int(rand() * (right - left + 1)) + left;
+    # generate a random number between the start and current element
+    r = int(rand() * (i - left + 1)) + left;
 
     # swap current element and randomly generated one
     tmp = array[i];
