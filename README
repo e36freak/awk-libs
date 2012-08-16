@@ -181,8 +181,7 @@ sort.awk **
     values, creating a new sorted array "d" with sequential integers starting
     with 1. returns the length, or -1 if an error occurs.. leaves the indices of
     the source array "s" unchanged. the optional string "how" controls the
-    direction and the comparison mode. uses the quick sort algorithm, with a
-    random pivot to avoid worst-case behavior on already sorted arrays.
+    direction and the comparison mode. uses the quick sort algorithm.
     valid values for "how" are:
       "std asc"
         use awk's standard rules for comparison, ascending. this is the default
