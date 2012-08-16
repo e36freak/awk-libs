@@ -251,7 +251,7 @@ function iqsorti(array, how,    tmp, count, i) {
 
 
 
-## usage: shuf(s, d)
+## usage: shuf(s, d) **
 ## shuffles the array "s", creating a new shuffled array "d" indexed with
 ## sequential integers starting with one. returns the length, or -1 if an error
 ## occurs. leaves the indices of the source array "s" unchanged. uses the knuth-
@@ -274,7 +274,7 @@ function shuf(array, out,    count, i) {
   return count;
 }
 
-## usage: ishuf(s)
+## usage: ishuf(s) **
 ## the behavior is the same as that of shuf(), except the array "s" is sorted
 ## in-place. the original indices are destroyed and replaced with sequential
 ## integers. everything else is described in shuf() above.
@@ -303,7 +303,7 @@ function ishuf(array,    tmp, count, i) {
   return count;
 }
 
-## usage: shufi(s, d)
+## usage: shufi(s, d) **
 ## the bevavior is the same as that of shuf(), except that the array indices
 ## are shuffled, not the array values. when done, the new array is indexed
 ## numerically, and the values are those of the original indices. everything
@@ -326,7 +326,7 @@ function shufi(array, out,    count, i) {
   return count;
 }
 
-## usage: ishufi(s)
+## usage: ishufi(s) **
 ## the behavior is tha same as that of shufi(), except that the array "s" is
 ## sorted in-place. the original indices are destroyed and replaced with
 ## sequential integers. everything else is describmed in shuf() and shufi()
