@@ -173,6 +173,18 @@ strings.awk *
     converts string to an array, one char per element, 1-indexed
     returns the array length
 
+  fwidths(width_spec [, string]) **
+    extracts substrings from "string" according to "width_spec" from left to
+    right and assigns them to $1, $2, etc. also assigns the NF variable. if
+    "string" is not supplied, uses $0. "width_spec" is a space separated list of
+    numbers that specify field widths, just like GNU awk's FIELDWIDTHS variable.
+    returns the value for NF.
+
+  fwidths_arr(width_spec, array [, string]) **
+    the behavior is the same as that of fwidths(), except that the values are
+    assigned to "array", indexed with sequential integers starting with 1.
+    returns the length. everything else is described in fwidths() above.
+
   trim(string) **
     returns "string" with leading and trailing whitespace trimmed
 

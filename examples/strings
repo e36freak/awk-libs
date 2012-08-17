@@ -138,6 +138,38 @@ BEGIN {
   print "";
 }
 
+# usage: fwidths(width_spec [, string]) **
+# extracts substrings from "string" according to "width_spec" from left to
+# right and assigns them to $1, $2, etc. also assigns the NF variable. if
+# "string" is not supplied, uses $0. "width_spec" is a space separated list of
+# numbers that specify field widths, just like GNU awk's FIELDWIDTHS variable.
+# returns the value for NF.
+BEGIN {
+  str = "1234567890";
+  fwidths("3 2 5", str);
+
+  for (i=1; i<=NF; i++) {
+    print $i;
+  }
+
+  print "";
+}
+
+# usage: fwidths_arr(width_spec, array [, string]) **
+# the behavior is the same as that of fwidths(), except that the values are
+# assigned to "array", indexed with sequential integers starting with 1.
+# returns the length. everything else is described in fwidths() above.
+BEGIN {
+  str = "1234567890";
+  len = fwidths("2 1 4 3", a, str);
+
+  for (i=1; i<=len; i++) {
+    print a[i];
+  }
+
+  print "";
+}
+
 # usage: trim(string)
 # returns "string" with leading and trailing whitespace trimmed
 BEGIN {
