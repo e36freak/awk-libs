@@ -18,9 +18,9 @@ function __compare(a, b, how) {
 
   # force numeric
   } else if (how == "num asc") {
-    return a + 0 < b + 0;
+    return +a < +b;
   } else if (how == "num desc") {
-    return a + 0 > b + 0;
+    return +a > +b;
   }
 }
 
@@ -91,7 +91,8 @@ function __shuffle(array, left, right,    r, i, tmp) {
 ## starting with 1. returns the length, or -1 if an error occurs.. leaves the
 ## indices of the source array "s" unchanged. the optional string "how" controls
 ## the direction and the comparison mode. uses the quick sort algorithm, with a
-## random pivot to avoid worst-case behavior on already sorted arrays.
+## random pivot to avoid worst-case behavior on already sorted arrays. requires
+## the __compare() and __quicksort() functions.
 ## valid values for "how" are:
 ##   "std asc"
 ##     use awk's standard rules for comparison, ascending. this is the default
@@ -255,7 +256,7 @@ function iqsorti(array, how,    tmp, count, i) {
 ## shuffles the array "s", creating a new shuffled array "d" indexed with
 ## sequential integers starting with one. returns the length, or -1 if an error
 ## occurs. leaves the indices of the source array "s" unchanged. uses the knuth-
-## fisher-yates algorithm.
+## fisher-yates algorithm. requires the __shuffle() function.
 function shuf(array, out,    count, i) {
   # loop over each index, and generate a new array with the same values and
   # sequential indices

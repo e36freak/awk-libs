@@ -1,5 +1,25 @@
 #!/usr/bin/awk -f
 
+# comparison function
+# compares "A" and "b" based on "how", returning 0 for false and 1 for true
+# required for all max() and min() functions below
+function __mcompare(a, b, how) {
+ # standard comparison
+  if (how == "std") {
+    return a > b;
+
+  # force string comp
+  } else if (how == "str") {
+    return "a" a > "a" b;
+
+  # force numeric
+  } else if (how == "num") {
+    return +a > +b;
+  }
+}
+
+
+
 ## usage: center(string[, width])
 ## returns "string" centered based on "width". if "width" is not provided (or 
 ## is 0), uses the width of the terminal, or 80 if standard output is not open
@@ -252,7 +272,7 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
   return i - 1;
 }
 
-## usage: trim(string)
+## usage: trim(string) **
 ## returns "string" with leading and trailing whitespace trimmed
 function trim(str) {
   gsub(/^[[:blank:]]+|[[:blank:]]+$/, "", str);
@@ -260,7 +280,7 @@ function trim(str) {
   return str;
 }
 
-## usage: rev(string)
+## usage: rev(string) *
 ## returns "string" backwards
 function rev(str,    a, len, i, o) {
   # split string into character array
@@ -272,4 +292,161 @@ function rev(str,    a, len, i, o) {
   }
 
   return o;
+}
+
+## usage: max(array [, how ]) **
+## returns the maximum value in "array", 0 if the array is empty, or -1 if an
+## error occurs. the optional string "how" controls the comparison mode.
+## requires the __mcompare() function.
+## valid values for "how" are:
+##   "std"
+##     use awk's standard rules for comparison. this is the default
+##   "str"
+##     force comparison as strings
+##   "num"
+##     force a numeric comparison
+function max(array, how,    max, i, first) {
+  # make sure how is correct
+  if (length(how)) {
+    if (how !~ /^(st[rd]|num)$/) {
+      return -1;
+    }
+
+  # how was not passed, use the default
+  } else {
+    how = "std";
+  }
+
+  max = 0;
+  first = 1;
+
+  # loop over each array value
+  for (i in array) {
+    # if this is the first iteration, use the value as max
+    if (first) {
+      max = array[i];
+      first = 0;
+
+      continue;
+    }
+
+    # otherwise, if it's greater than "max", reassign it
+    if (__mcompare(array[i], max, how)) {
+      max = array[i];
+    }
+  }
+
+  return max;
+}
+
+## usage: maxi(array [, how ]) **
+## the behavior is the same as that of max(), except that the array indices are
+## used, not the array values. everything else is explained in max() above.
+function maxi(array, how,    max, i, first) {
+  # make sure how is correct
+  if (length(how)) {
+    if (how !~ /^(st[rd]|num)$/) {
+      return -1;
+    }
+
+  # how was not passed, use the default
+  } else {
+    how = "std";
+  }
+
+  max = 0;
+  first = 1;
+
+  # loop over each index
+  for (i in array) {
+    # if this is the first iteration, use the value as max
+    if (first) {
+      max = i;
+      first = 0;
+
+      continue;
+    }
+
+    # otherwise, if it's greater than "max", reassign it
+    if (__mcompare(i, max, how)) {
+      max = i;
+    }
+  }
+
+  return max;
+}
+
+## usage: min(array [, how ]) **
+## the behavior is the same as that of max(), except that the minimum value is
+## returned instead of the maximum. everything else is explained in max() above.
+function min(array, how,    min, i first) {
+  # make sure how is correct
+  if (length(how)) {
+    if (how !~ /^(st[rd]|num)$/) {
+      return -1;
+    }
+
+  # how was not passed, use the default
+  } else {
+    how = "std";
+  }
+
+  min = 0;
+  first = 1;
+
+  # loop over each index
+  for (i in array) {
+    # if this is the first iteration, use the value as min
+    if (first) {
+      min = array[i];
+      first = 0;
+
+      continue;
+    }
+
+    # otherwise, if it's less than "min", reassign it
+    if (__mcompare(min, array[i], how)) {
+      min = array[i];
+    }
+  }
+
+  return min;
+}
+
+## usage: mini(array [, how ]) **
+## the behavior is the same as that of min(), except that the array indices are
+## used instead of the array values. everything else is explained in min() and
+## max() above.
+function mini(array, how,    min, i first) {
+  # make sure how is correct
+  if (length(how)) {
+    if (how !~ /^(st[rd]|num)$/) {
+      return -1;
+    }
+
+  # how was not passed, use the default
+  } else {
+    how = "std";
+  }
+
+  min = 0;
+  first = 1;
+
+  # loop over each index
+  for (i in array) {
+    # if this is the first iteration, use the value as min
+    if (first) {
+      min = i;
+      first = 0;
+
+      continue;
+    }
+
+    # otherwise, if it's less than "min", reassign it
+    if (__mcompare(min, i, how)) {
+      min = i;
+    }
+  }
+
+  return min;
 }

@@ -189,3 +189,64 @@ BEGIN {
   print "normal: " string;
   print "after rev(): " rev(string);
 }
+
+# usage: max(array [, how ]) **
+# returns the maximum value in "array", 0 if the array is empty, or -1 if an
+# error occurs. the optional string "how" controls the comparison mode.
+# requires the __mcompare() function.
+# valid values for "how" are:
+#   "std"
+#     use awk's standard rules for comparison. this is the default
+#   "str"
+#     force comparison as strings
+#   "num"
+#     force a numeric comparison
+BEGIN {
+  # populate array with random numbers
+  for (i=0; i<10; i++) {
+    a[i] = int(rand() * 10);
+  }
+
+  # print the max
+  print "max: " max(a, "num");
+}
+
+# usage: maxi(array [, how ]) **
+# the behavior is the same as that of max(), except that the array indices are
+# used, not the array values. everything else is explained in max() above.
+BEGIN {
+  # populate array with random numbers
+  for (i=0; i<10; i++) {
+    a[int(rand() * 10)];
+  }
+
+  # print the max
+  print "max: " maxi(a, "num");
+}
+
+# usage: min(array [, how ]) **
+# the behavior is the same as that of max(), except that the minimum value is
+# returned instead of the maximum. everything else is explained in max() above.
+BEGIN {
+  # populate array with random numbers
+  for (i=0; i<10; i++) {
+    a[i] = int(rand() * 10);
+  }
+
+  # print the min
+  print "min: " min(a, "num");
+}
+
+# usage: mini(array [, how ]) **
+# the behavior is the same as that of min(), except that the array indices are
+# used instead of the array values. everything else is explained in min() and
+# max() above.
+BEGIN {
+  # populate array with random numbers
+  for (i=0; i<10; i++) {
+    a[int(rand() * 10)];
+  }
+
+  # print the min
+  print "min: " mini(a, "num");
+}

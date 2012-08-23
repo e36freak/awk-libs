@@ -30,10 +30,11 @@ Making them POSIX is left as an exercise to the user, if desired.
 
 
 Most of the functions in this library work by themselves, with the exception of
-the functions in sort.awk. This means that they can easily be copy/pasted into
-a script, and will function fine on their own. In the case of sort.awk, the
-functions that the others depend on begin with '__', and which functions they
-go with are explained in the comments.
+the functions in sort.awk and the max() and min() functions in strings.awk.
+This means that they can easily be copy/pasted into a script, and will function
+fine on their own. In the case of sort.awk, the functions that the others depend
+on begin with '__', and which functions they go with (as well as which functions
+require what) are explained in the comments.
 
 
 
@@ -191,6 +192,31 @@ strings.awk *
   rev(string) *
     returns "string" backwards
 
+  max(array [, how ]) **
+    returns the maximum value in "array", 0 if the array is empty, or -1 if an
+    error occurs. the optional string "how" controls the comparison mode.
+    requires the __mcompare() function.
+    valid values for "how" are:
+      "std"
+        use awk's standard rules for comparison. this is the default
+      "str"
+        force comparison as strings
+      "num"
+        force a numeric comparison
+
+  maxi(array [, how ]) **
+    the behavior is the same as that of max(), except that the array indices are
+    used, not the array values. everything else is explained in max() above.
+
+  min(array [, how ]) **
+    the behavior is the same as that of max(), except that the minimum value is
+    returned instead of the maximum. everything else is explained in max() above.
+
+  mini(array [, how ]) **
+    the behavior is the same as that of min(), except that the array indices are
+    used instead of the array values. everything else is explained in min() and
+    max() above.
+
 
 
 sort.awk **
@@ -200,7 +226,8 @@ sort.awk **
     starting with 1. returns the length, or -1 if an error occurs.. leaves the
     indices of the source array "s" unchanged. the optional string "how" controls
     the direction and the comparison mode. uses the quick sort algorithm, with a
-    random pivot to avoid worst-case behavior on already sorted arrays.
+    random pivot to avoid worst-case behavior on already sorted arrays. requires
+    the __compare() and __quicksort() functions.
     valid values for "how" are:
       "std asc"
         use awk's standard rules for comparison, ascending. this is the default
@@ -236,7 +263,7 @@ sort.awk **
     shuffles the array "s", creating a new shuffled array "d" indexed with
     sequential integers starting with one. returns the length, or -1 if an error
     occurs. leaves the indices of the source array "s" unchanged. uses the knuth-
-    fisher-yates algorithm.
+    fisher-yates algorithm. requires the __shuffle() function.
 
   ishuf(s) **
     the behavior is the same as that of shuf(), except the array "s" is sorted
