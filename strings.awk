@@ -379,7 +379,7 @@ function maxi(array, how,    m, i, f) {
 ## usage: min(array [, how ]) **
 ## the behavior is the same as that of max(), except that the minimum value is
 ## returned instead of the maximum. everything else is explained in max() above.
-function min(array, how,    m, i f) {
+function min(array, how,    m, i, f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
@@ -417,7 +417,7 @@ function min(array, how,    m, i f) {
 ## the behavior is the same as that of min(), except that the array indices are
 ## used instead of the array values. everything else is explained in min() and
 ## max() above.
-function mini(array, how,    m, i f) {
+function mini(array, how,    m, i, f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
