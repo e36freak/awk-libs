@@ -305,7 +305,7 @@ function rev(str,    a, len, i, o) {
 ##     force comparison as strings
 ##   "num"
 ##     force a numeric comparison
-function max(array, how,    max, i, first) {
+function max(array, how,    m, i, f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
@@ -317,32 +317,32 @@ function max(array, how,    max, i, first) {
     how = "std";
   }
 
-  max = 0;
-  first = 1;
+  m = 0;
+  f = 1;
 
   # loop over each array value
   for (i in array) {
-    # if this is the first iteration, use the value as max
-    if (first) {
-      max = array[i];
-      first = 0;
+    # if this is the first iteration, use the value as m
+    if (f) {
+      m = array[i];
+      f = 0;
 
       continue;
     }
 
-    # otherwise, if it's greater than "max", reassign it
-    if (__mcompare(array[i], max, how)) {
-      max = array[i];
+    # otherwise, if it's greater than "m", reassign it
+    if (__mcompare(array[i], m, how)) {
+      m = array[i];
     }
   }
 
-  return max;
+  return m;
 }
 
 ## usage: maxi(array [, how ]) **
 ## the behavior is the same as that of max(), except that the array indices are
 ## used, not the array values. everything else is explained in max() above.
-function maxi(array, how,    max, i, first) {
+function maxi(array, how,    m, i, f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
@@ -354,32 +354,32 @@ function maxi(array, how,    max, i, first) {
     how = "std";
   }
 
-  max = 0;
-  first = 1;
+  m = 0;
+  f = 1;
 
   # loop over each index
   for (i in array) {
-    # if this is the first iteration, use the value as max
-    if (first) {
-      max = i;
-      first = 0;
+    # if this is the first iteration, use the value as m
+    if (f) {
+      m = i;
+      f = 0;
 
       continue;
     }
 
-    # otherwise, if it's greater than "max", reassign it
-    if (__mcompare(i, max, how)) {
-      max = i;
+    # otherwise, if it's greater than "m", reassign it
+    if (__mcompare(i, m, how)) {
+      m = i;
     }
   }
 
-  return max;
+  return m;
 }
 
 ## usage: min(array [, how ]) **
 ## the behavior is the same as that of max(), except that the minimum value is
 ## returned instead of the maximum. everything else is explained in max() above.
-function min(array, how,    min, i first) {
+function min(array, how,    m, i f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
@@ -391,33 +391,33 @@ function min(array, how,    min, i first) {
     how = "std";
   }
 
-  min = 0;
-  first = 1;
+  m = 0;
+  f = 1;
 
   # loop over each index
   for (i in array) {
-    # if this is the first iteration, use the value as min
-    if (first) {
-      min = array[i];
-      first = 0;
+    # if this is the first iteration, use the value as m
+    if (f) {
+      m = array[i];
+      f = 0;
 
       continue;
     }
 
-    # otherwise, if it's less than "min", reassign it
-    if (__mcompare(min, array[i], how)) {
-      min = array[i];
+    # otherwise, if it's less than "m", reassign it
+    if (__mcompare(m, array[i], how)) {
+      m = array[i];
     }
   }
 
-  return min;
+  return m;
 }
 
 ## usage: mini(array [, how ]) **
 ## the behavior is the same as that of min(), except that the array indices are
 ## used instead of the array values. everything else is explained in min() and
 ## max() above.
-function mini(array, how,    min, i first) {
+function mini(array, how,    m, i f) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num)$/) {
@@ -429,24 +429,24 @@ function mini(array, how,    min, i first) {
     how = "std";
   }
 
-  min = 0;
-  first = 1;
+  m = 0;
+  f = 1;
 
   # loop over each index
   for (i in array) {
-    # if this is the first iteration, use the value as min
-    if (first) {
-      min = i;
-      first = 0;
+    # if this is the first iteration, use the value as m
+    if (f) {
+      m = i;
+      f = 0;
 
       continue;
     }
 
-    # otherwise, if it's less than "min", reassign it
-    if (__mcompare(min, i, how)) {
-      min = i;
+    # otherwise, if it's less than "m", reassign it
+    if (__mcompare(m, i, how)) {
+      m = i;
     }
   }
 
-  return min;
+  return m;
 }
