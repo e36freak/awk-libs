@@ -138,7 +138,7 @@ BEGIN {
   print "";
 }
 
-# usage: fwidths(width_spec [, string]) **
+# usage: fwidths(width_spec [, string])
 # extracts substrings from "string" according to "width_spec" from left to
 # right and assigns them to $1, $2, etc. also assigns the NF variable. if
 # "string" is not supplied, uses $0. "width_spec" is a space separated list of
@@ -155,7 +155,7 @@ BEGIN {
   print "";
 }
 
-# usage: fwidths_arr(width_spec, array [, string]) **
+# usage: fwidths_arr(width_spec, array [, string])
 # the behavior is the same as that of fwidths(), except that the values are
 # assigned to "array", indexed with sequential integers starting with 1.
 # returns the length. everything else is described in fwidths() above.
@@ -190,7 +190,7 @@ BEGIN {
   print "after rev(): " rev(string);
 }
 
-# usage: max(array [, how ]) **
+# usage: max(array [, how ])
 # returns the maximum value in "array", 0 if the array is empty, or -1 if an
 # error occurs. the optional string "how" controls the comparison mode.
 # requires the __mcompare() function.
@@ -211,7 +211,7 @@ BEGIN {
   print "max: " max(a, "num");
 }
 
-# usage: maxi(array [, how ]) **
+# usage: maxi(array [, how ])
 # the behavior is the same as that of max(), except that the array indices are
 # used, not the array values. everything else is explained in max() above.
 BEGIN {
@@ -224,7 +224,7 @@ BEGIN {
   print "max: " maxi(a, "num");
 }
 
-# usage: min(array [, how ]) **
+# usage: min(array [, how ])
 # the behavior is the same as that of max(), except that the minimum value is
 # returned instead of the maximum. everything else is explained in max() above.
 BEGIN {
@@ -237,7 +237,7 @@ BEGIN {
   print "min: " min(a, "num");
 }
 
-# usage: mini(array [, how ]) **
+# usage: mini(array [, how ])
 # the behavior is the same as that of min(), except that the array indices are
 # used instead of the array values. everything else is explained in min() and
 # max() above.

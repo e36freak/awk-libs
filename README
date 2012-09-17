@@ -1,20 +1,16 @@
 AWK library function descriptions
 
-POSIX compliant functions are marked with a "*", and have been tested on
-gawk 3 and 4, as well as nawk 20110810. Functions marked with "**" have also
-been tested on mawk 1.3.4, which is not fully POSIX compliant. The markings next
-to the library name indicate the lowest level of compliance of all of the
-functions within. Interval notation has not been used in the functions in this
-library, even though POSIX states that they should be supported, because most
-current implementations of awk still do not support them.
+Every function below is fully POSIX compliant, and has been tested on gawk 3
+and 4, as well as nawk 20110810 and mawk 1.3.4. Interval notation has not been
+used in this library, even though POSIX states that it should be supported,
+as most of the current implementations still do not support it.
 
 Note: mawk 1.3.3 is even less POSIX compliant than 1.3.4, and doesn't handle
 POSIX character classes in regexes (like [:space:] or [:alpha:]), among other
 things. It is currently the standard on ubuntu, and is most likely standard on
-other debian-based linux distributions, as well. Even functions marked with
-'**' are not guaranteed to work on versions of mawk prior to 1.3.4, although
-they should not be too hard to alter in order to do so. (The biggest issue is
-split(str, arr, //) ).
+other debian-based linux distributions, as well. The functions below are not
+guaranteed to work on versions of mawk prior to 1.3.4, although they should not
+be too difficult to alter in order to do so.
 
 If you are using gawk, I recommend adding the location of this repo to the
 AWKPATH environment variable. This will allow you to only supply the file name
@@ -41,26 +37,26 @@ require what) are explained in the comments.
 
 Libraries, and the available functions within:
 
-math.awk **
-  abs(number) **
+math.awk
+  abs(number)
     returns the absolute value of "number"
 
-  ceil(number) **
+  ceil(number)
     returns "number" rounded UP to the nearest int
 
-  ceiling(multiple, number) **
+  ceiling(multiple, number)
     returns "number" rounded UP to the nearest multiple of "multiple". integers
     only
 
-  floor(multiple, number) **
+  floor(multiple, number)
     returns "number" rounded DOWN to the nearest multiple of "multiple".
     integers only
 
-  round(multiple, number) **
+  round(multiple, number)
     returns "number" rounded to the nearest multiple of "multiple". integers
     only
 
-  change_base(number, start_base, end_base) **
+  change_base(number, start_base, end_base)
     converts "number" from "start_base" to "end_base"
     bases must be between 2 and 64. the digits greater than 9 are represented
     by the lowercase letters, the uppercase letters, @, and _, in that order.
@@ -68,55 +64,55 @@ math.awk **
     be used interchangeably to represent numbers between 10 and 35. integers
     only. returns 0 if any argument is invalid
 
-  format_num(number) **
+  format_num(number)
     adds commas to "number" to make it more readable. for example,
     format_num(1000) will return "1,000", and format_num(123456.7890) will
     return "123,456.7890". also trims leading zeroes
     returns 0 if "number" is not a valid number
 
-  isint(string) **
+  isint(string)
     returns 1 if "string" is a valid integer, otherwise 0
 
-  isnum(string) **
+  isnum(string)
     returns 1 if "string" is a valid number, otherwise 0
 
-  calc_e() **
+  calc_e()
     approximates e by calculating the sumation from k=0 to k=50 of 1/k!
     returns 10 decimal places
 
-  calc_pi() **
+  calc_pi()
     returns pi, with an accuracy of 10 decimal places
 
-  calc_tau() **
+  calc_tau()
     returns tau, with an accuracy of 10 decimal places
     http://tauday.com/tau-manifesto
 
-  deg_to_rad(degrees) **
+  deg_to_rad(degrees)
     converts degrees to radians
 
-  rad_to_deg(radians) **
+  rad_to_deg(radians)
     converts radians to degrees
 
-  tan(expr) **
+  tan(expr)
     returns the tangent of expr, which is in radians
 
-  csc(expr) **
+  csc(expr)
     returns the cosecant of expr, which is in radians
 
-  sec(expr) **
+  sec(expr)
     returns the secant of expr, which is in radians
 
-  cot(expr) **
+  cot(expr)
     returns the cotangent of expr, which is in radians
 
 
 
-sys.awk *
-  isatty(fd) **
+sys.awk
+  isatty(fd)
     Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
     error occurs
 
-  mktemp(template[, type]) *
+  mktemp(template[, type])
     creates a temporary file or directory, safely, and returns its name.
     if template is not a pathname, the file will be created in ENVIRON["TMPDIR"]
     if set, otherwise /tmp. the last six characters of template must be "XXXXXX",
@@ -128,9 +124,9 @@ sys.awk *
 
 
 
-strings.awk *
+strings.awk
 
-  center(string[, width]) **
+  center(string[, width])
     returns "string" centered based on "width". if "width" is not provided (or 
     is 0), uses the width of the terminal, or 80 if standard output is not open
     on a terminal.
@@ -139,10 +135,10 @@ strings.awk *
     combine with fold() (see the "cfold" script in the "examples" directory for
     a script that does exactly this!)
 
-  delete_arr(array) **
+  delete_arr(array)
     deletes every element in "array"
 
-  fold(string, sep[, width]) *
+  fold(string, sep[, width])
     returns "string", wrapped, with lines broken on "sep" to "width" columns.
     "sep" is a list of characters to break at, similar to IFS in a POSIX shell.
     if "sep" is empty, wraps at exactly "width" characters. if "width" is not
@@ -150,49 +146,49 @@ strings.awk *
     is not open on a terminal.
     note: currently, tabs are squeezed to a single space. this will be fixed
 
-  shell_esc(string) **
+  shell_esc(string)
     returns the string escaped so that it can be used in a shell command
 
-  ssub(ere, repl [, in]) **
+  ssub(ere, repl [, in])
     behaves like sub, except returns the result and doesn't modify "in".
     note: 'ere' must not use /.../ literal regex quoting
 
-  sgsub(ere, repl [, in]) **
+  sgsub(ere, repl [, in])
     behaves like gsub, except returns the result and doesn't modify "in".
     note: 'ere' must not use /.../ literal regex quoting
 
-  lsub(str, repl [, in]) **
+  lsub(str, repl [, in])
     substites the string "repl" in place of the first instance of "str" in the
     string "in" and returns the result. does not modify the original string. if
     "in" is not provided, uses $0
 
-  glsub(str, repl [, in]) **
+  glsub(str, repl [, in])
     behaves like lsub, except it replaces all occurances of "str"
     note: does not work in mawk when 'str' is empty
 
-  str_to_arr(string, array) *
+  str_to_arr(string, array)
     converts string to an array, one char per element, 1-indexed
     returns the array length
 
-  fwidths(width_spec [, string]) **
+  fwidths(width_spec [, string])
     extracts substrings from "string" according to "width_spec" from left to
     right and assigns them to $1, $2, etc. also assigns the NF variable. if
     "string" is not supplied, uses $0. "width_spec" is a space separated list of
     numbers that specify field widths, just like GNU awk's FIELDWIDTHS variable.
     returns the value for NF.
 
-  fwidths_arr(width_spec, array [, string]) **
+  fwidths_arr(width_spec, array [, string])
     the behavior is the same as that of fwidths(), except that the values are
     assigned to "array", indexed with sequential integers starting with 1.
     returns the length. everything else is described in fwidths() above.
 
-  trim(string) **
+  trim(string)
     returns "string" with leading and trailing whitespace trimmed
 
-  rev(string) *
+  rev(string)
     returns "string" backwards
 
-  max(array [, how ]) **
+  max(array [, how ])
     returns the maximum value in "array", 0 if the array is empty, or -1 if an
     error occurs. the optional string "how" controls the comparison mode.
     requires the __mcompare() function.
@@ -204,23 +200,23 @@ strings.awk *
       "num"
         force a numeric comparison
 
-  maxi(array [, how ]) **
+  maxi(array [, how ])
     the behavior is the same as that of max(), except that the array indices are
     used, not the array values. everything else is explained in max() above.
 
-  min(array [, how ]) **
+  min(array [, how ])
     the behavior is the same as that of max(), except that the minimum value is
     returned instead of the maximum. everything else is explained in max() above.
 
-  mini(array [, how ]) **
+  mini(array [, how ])
     the behavior is the same as that of min(), except that the array indices are
     used instead of the array values. everything else is explained in min() and
     max() above.
 
 
 
-sort.awk **
-  qsort(s, d [, how]) **
+sort.awk
+  qsort(s, d [, how])
     sorts the elements in the array "s" using awk's normal rules for comparing
     values, creating a new sorted array "d" indexed with sequential integers
     starting with 1. returns the length, or -1 if an error occurs.. leaves the
@@ -242,41 +238,41 @@ sort.awk **
       "num asc"
         force a numeric comparison, descending.
 
-  iqsort(s [, how]) **
+  iqsort(s [, how])
     the bevavior is the same as that of qsort(), except that the array "s" is
     sorted in-place. the original indices are destroyed and replaced with
     sequential integers. everything else is described in qsort() above.
 
-  qsorti(s, d [, how]) **
+  qsorti(s, d [, how])
     the behavior is the same as that of qsort(), except that the array indices
     are used for sorting, not the array values. when done, the new array is
     indexed numerically, and the values are those of the original indices.
     everything else is described in qsort() above.
 
-  iqsorti(s [, how]) **
+  iqsorti(s [, how])
     the bevavior is the same as that of qsorti(), except that the array "s" is
     sorted in-place. the original indices are destroyed and replaced with
     sequential integers. everything else is described in qsort() and qsorti()
     above.
 
-  shuf(s, d) **
+  shuf(s, d)
     shuffles the array "s", creating a new shuffled array "d" indexed with
     sequential integers starting with one. returns the length, or -1 if an error
     occurs. leaves the indices of the source array "s" unchanged. uses the knuth-
     fisher-yates algorithm. requires the __shuffle() function.
 
-  ishuf(s) **
+  ishuf(s)
     the behavior is the same as that of shuf(), except the array "s" is sorted
     in-place. the original indices are destroyed and replaced with sequential
     integers. everything else is described in shuf() above.
 
-  shufi(s, d) **
+  shufi(s, d)
     the bevavior is the same as that of shuf(), except that the array indices
     are shuffled, not the array values. when done, the new array is indexed
     numerically, and the values are those of the original indices. everything
     else is described in shuf() above.
 
-  ishufi(s) **
+  ishufi(s)
     the behavior is tha same as that of shufi(), except that the array "s" is
     sorted in-place. the original indices are destroyed and replaced with
     sequential integers. everything else is describmed in shuf() and shufi()
@@ -284,9 +280,9 @@ sort.awk **
 
 
 
-csv.awk *
+csv.awk
 
-  create_line(array, max [, sep [, qualifier] ]) **
+  create_line(array, max [, sep [, qualifier] ])
     Generates an output line in quoted CSV format, from the contents of "array"
     "array" is expected to be an indexed array (1-indexed). "max" is the highest
     index to be used. "sep", if provided, is the field separator. If it is more
@@ -298,7 +294,7 @@ csv.awk *
     note: expects a non-sparse array. empty or unset values will become
     empty fields
 
-  qsplit(string, array [, sep [, qualifier] ]) *
+  qsplit(string, array [, sep [, qualifier] ])
     a version of split() designed for CSV-like data. splits "string" on "sep"
     (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
     both "sep" and "qualifier" will use the first character in the provided
@@ -310,9 +306,9 @@ csv.awk *
 
 
 
-options.awk **
+options.awk
 
-  getopts(optstring [, longopt_array ]) **
+  getopts(optstring [, longopt_array ])
     parses options, and deletes them from ARGV. "optstring" is of the form
     "ab:c". each letter is a possible option. if the letter is followed by a
     colon (:), then the option requires an argument. if an argument is not
@@ -331,36 +327,36 @@ options.awk **
 
 
 
-times.awk **
+times.awk
 
-  month_to_num(month) **
+  month_to_num(month)
     converts human readable month to the decimal representation
     returns the number, -1 if the month doesn't exist
 
-  day_to_num(day) **
+  day_to_num(day)
     converts human readable day to the decimal representation
     returns the number, -1 if the day doesn't exist
     like date +%w, sunday is 0
 
-  hr_to_sec(timestamp) **
+  hr_to_sec(timestamp)
     converts HH:MM:SS to seconds, returns -1 if invalid format
 
-  sec_to_hr(seconds) **
+  sec_to_hr(seconds)
     converts seconds to HH:MM:SS
 
-  ms_to_hr(milliseconds) **
+  ms_to_hr(milliseconds)
     converts milliseconds to a "time(1)"-similar human readable format, such
     as 1m4.356s
 
-  add_day_suff(day_of_month) **
+  add_day_suff(day_of_month)
     prepends the appropriate suffix to "day_of_month". for example,
     add_day_suff(1) will return "1st", and add_day_suff(22) will return "22nd"
     returns -1 if "day_of_month" is not a positive integer
 
 
 
-colors.awk **
-  set_cols() **
+colors.awk
+  set_cols()
     sets the following variables with tput. printing them will format any
     text afterwards. colors and formats are:
       bold - bold text (can be combined with a color)

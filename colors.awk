@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 
-## usage: set_cols() **
+## usage: set_cols()
 ##   sets the following variables with tput. printing them will format any
 ##   text afterwards. colors and formats are:
 ##     bold - bold text (can be combined with a color)

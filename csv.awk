@@ -79,7 +79,7 @@ function qsplit(str, arr, sep, q,    a, len, cur, isin, c) {
   }
 
   # split the string into the temporary array "a", one element per char
-  len = split(str, a, //);
+  len = split(str, a, "");
 
   # "cur" contains the current element of 'arr' the function is assigning to
   cur = 1;

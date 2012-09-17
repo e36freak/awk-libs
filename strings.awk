@@ -88,7 +88,7 @@ function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f, first) {
   # would destroy the existing separators)
   } else {
     # split string into char array
-    len = split(str, chars, //);
+    len = split(str, chars, "");
     # set boolean, used to assign the first line differently
     first = 1;
 
@@ -184,7 +184,7 @@ function glsub(str, rep, val,    out, len, i, a, l) {
   # get the length of val, in order to know how much of the string to remove
   if (!(len = length(str))) {
     # if "str" is empty, adds "rep" between every character and returns
-    l = split(val, a, //);
+    l = split(val, a, "");
     for (i=1; i<=l; i++) {
       out = out rep a[i];
     }
@@ -216,10 +216,10 @@ function shell_esc(str) {
 ## converts string to an array, one char per element, 1-indexed
 ## returns the array length
 function str_to_arr(str, arr) {
-  return split(str, arr, //);
+  return split(str, arr, "");
 }
 
-## usage: fwidths(width_spec [, string]) **
+## usage: fwidths(width_spec [, string])
 ## extracts substrings from "string" according to "width_spec" from left to
 ## right and assigns them to $1, $2, etc. also assigns the NF variable. if
 ## "string" is not supplied, uses $0. "width_spec" is a space separated list of
@@ -247,7 +247,7 @@ function fwidths(wspec, str,    fw, i, len) {
   return NF;
 }
 
-## usage: fwidths_arr(width_spec, array [, string]) **
+## usage: fwidths_arr(width_spec, array [, string])
 ## the behavior is the same as that of fwidths(), except that the values are
 ## assigned to "array", indexed with sequential integers starting with 1.
 ## returns the length. everything else is described in fwidths() above.
@@ -272,7 +272,7 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
   return i - 1;
 }
 
-## usage: trim(string) **
+## usage: trim(string)
 ## returns "string" with leading and trailing whitespace trimmed
 function trim(str) {
   gsub(/^[[:blank:]]+|[[:blank:]]+$/, "", str);
@@ -280,11 +280,11 @@ function trim(str) {
   return str;
 }
 
-## usage: rev(string) *
+## usage: rev(string)
 ## returns "string" backwards
 function rev(str,    a, len, i, o) {
   # split string into character array
-  len = split(str, a, //);
+  len = split(str, a, "");
 
   # iterate backwards and append to the output string
   for (i=len; i>0; i--) {
@@ -294,7 +294,7 @@ function rev(str,    a, len, i, o) {
   return o;
 }
 
-## usage: max(array [, how ]) **
+## usage: max(array [, how ])
 ## returns the maximum value in "array", 0 if the array is empty, or -1 if an
 ## error occurs. the optional string "how" controls the comparison mode.
 ## requires the __mcompare() function.
@@ -339,7 +339,7 @@ function max(array, how,    m, i, f) {
   return m;
 }
 
-## usage: maxi(array [, how ]) **
+## usage: maxi(array [, how ])
 ## the behavior is the same as that of max(), except that the array indices are
 ## used, not the array values. everything else is explained in max() above.
 function maxi(array, how,    m, i, f) {
@@ -376,7 +376,7 @@ function maxi(array, how,    m, i, f) {
   return m;
 }
 
-## usage: min(array [, how ]) **
+## usage: min(array [, how ])
 ## the behavior is the same as that of max(), except that the minimum value is
 ## returned instead of the maximum. everything else is explained in max() above.
 function min(array, how,    m, i, f) {
@@ -413,7 +413,7 @@ function min(array, how,    m, i, f) {
   return m;
 }
 
-## usage: mini(array [, how ]) **
+## usage: mini(array [, how ])
 ## the behavior is the same as that of min(), except that the array indices are
 ## used instead of the array values. everything else is explained in min() and
 ## max() above.

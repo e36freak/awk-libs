@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 
-## usage: isatty(fd) **
+## usage: isatty(fd)
 ## Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
 ## error occurs
 function isatty(fd) {
@@ -13,7 +13,7 @@ function isatty(fd) {
   return !system("test -t " fd);
 }
 
-## usage: mktemp(template[, type]) *
+## usage: mktemp(template[, type])
 ## creates a temporary file or directory, safely, and returns its name.
 ## if template is not a pathname, the file will be created in ENVIRON["TMPDIR"]
 ## if set, otherwise /tmp. the last six characters of template must be "XXXXXX",
@@ -27,7 +27,7 @@ function mktemp(template, type,
                 cmd) {
   # portable filename characters
   c = "012345689ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  len = split(c, chars, //);
+  len = split(c, chars, "");
 
   # make sure template is valid
   if (length(template)) {
