@@ -76,6 +76,10 @@ math.awk
   isnum(string)
     returns 1 if "string" is a valid number, otherwise 0
 
+  isprime(number)
+    returns 1 if "number" is a prime number, otherwise 0. "number" must be a
+    positive integer
+
   calc_e()
     approximates e by calculating the sumation from k=0 to k=50 of 1/k!
     returns 10 decimal places

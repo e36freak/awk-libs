@@ -127,6 +127,19 @@ BEGIN {
   }
 }
 
+# usage: isprime(number)
+# returns 1 if "number" is a prime number, otherwise 0. "number" must be a
+# positive integer
+BEGIN {
+  print "primes from 1 through 10:";
+  for (i=1; i<=10; i++) {
+    if (isprime(i)) {
+      printf("%s ", $i);
+    }
+  }
+  print "";
+}
+
 # usage: calc_e()
 # approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 # returns 10 decimal places

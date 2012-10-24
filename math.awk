@@ -211,6 +211,30 @@ function isnum(str) {
   return 1;
 }
 
+## usage: isprime(number)
+## returns 1 if "number" is a prime number, otherwise 0. "number" must be a
+## positive integer
+function isprime(num,    i) {
+  # check to make sure "num" is a valid positive int (and not 1)
+  if (num !~ /^[0-9]+$/ || num <= 1) {
+    return 0;
+  }
+
+  # all even numbers except 2 are not prime
+  if (num > 2 && (num % 2) == 0) {
+    return 0;
+  }
+
+  # check for primality
+  for (i=3; i*i <= num; i+=2) {
+    if (!(num % i)) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
 ## usage: calc_e()
 ## approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 ## returns 10 decimal places
