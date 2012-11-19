@@ -104,7 +104,7 @@ function __shuffle(array, left, right,    r, i, tmp) {
 ##     force comparison as strings, descending.
 ##   "num asc"
 ##     force a numeric comparison, ascending.
-##   "num asc"
+##   "num desc"
 ##     force a numeric comparison, descending.
 function qsort(array, out, how,    count, i) {
   # make sure how is correct

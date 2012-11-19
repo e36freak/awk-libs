@@ -24,7 +24,7 @@
 #     force comparison as strings, descending.
 #   "num asc"
 #     force a numeric comparison, ascending.
-#   "num asc"
+#   "num desc"
 #     force a numeric comparison, descending.
 BEGIN {
   # populate array
