@@ -219,6 +219,53 @@ function str_to_arr(str, arr) {
   return split(str, arr, "");
 }
 
+## usage: extract_range(string, start, stop)
+## extracts fields "start" through "stop" from "string", based on FS, with the
+## original field separators intact. returns the extracted fields.
+function extract_range(str, start, stop,    i, re, out) {
+  # if FS is the default, trim leading and trailing spaces from "string" and
+  # set "re" to the appropriate regex
+  if (FS == " ") {
+    gsub(/^[[:space:]]+|[[:space:]]+$/, "", str);
+    re = "[[:space:]]+";
+  } else {
+    re = FS;
+  }
+
+  # remove fields 1 through start - 1 from the beginning
+  for (i=1; i<start; i++) {
+    if (match(str, re)) {
+      str = substr(str, RSTART + RLENGTH);
+
+    # there's no FS left, therefore the range is empty
+    } else {
+      return "";
+    }
+  }
+
+  # add fields start through stop - 1 to the output var
+  for (i=start; i<stop; i++) {
+    if (match(str, re)) {
+      # append the field to the output
+      out = out substr(str, 1, RSTART + RLENGTH - 1);
+
+      # remove the field from the line
+      str = substr(str, RSTART + RLENGTH);
+
+    # no FS left, just append the rest of the line and return
+    } else {
+      return out str;
+    }
+  }
+
+  # append the last field and return
+  if (match(str, re)) {
+    return out substr(str, 1, RSTART - 1);
+  } else {
+    return out str;
+  }
+}
+
 ## usage: fwidths(width_spec [, string])
 ## extracts substrings from "string" according to "width_spec" from left to
 ## right and assigns them to $1, $2, etc. also assigns the NF variable. if

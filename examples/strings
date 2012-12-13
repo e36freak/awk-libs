@@ -138,6 +138,20 @@ BEGIN {
   print "";
 }
 
+# usage: extract_range(string, start, stop)
+# extracts fields "start" through "stop" from "string", based on FS, with the
+# original field separators intact. returns the extracted fields.
+BEGIN {
+  str = "foo bar   baz\tblah  quux";
+  FS = " ";
+
+  printf("extract_range(str, 1, 3): %s\n", extract_range(str, 1, 3));
+  printf("extract_range(str, 2, NF): %s\n", extract_range(str, 2, NF));
+  printf("extract_range(str, 3, 8): %s\n", extract_range(str, 3, 8));
+
+  print "";
+}
+
 # usage: fwidths(width_spec [, string])
 # extracts substrings from "string" according to "width_spec" from left to
 # right and assigns them to $1, $2, etc. also assigns the NF variable. if
