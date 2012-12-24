@@ -20,7 +20,7 @@ function __mcompare(a, b, how) {
 
 
 
-## usage: center(string[, width])
+## usage: center(string [, width])
 ## returns "string" centered based on "width". if "width" is not provided (or 
 ## is 0), uses the width of the terminal, or 80 if standard output is not open
 ## on a terminal.
@@ -51,7 +51,7 @@ function delete_arr(arr) {
   split("", arr);
 }
 
-## usage: fold(string, sep[, width])
+## usage: fold(string, sep [, width])
 ## returns "string", wrapped, with lines broken on "sep" to "width" columns.
 ## "sep" is a list of characters to break at, similar to IFS in a POSIX shell.
 ## if "sep" is empty, wraps at exactly "width" characters. if "width" is not
@@ -119,7 +119,7 @@ function fold(str, sep, cols,    out, cmd, i, len, chars, c, last, f, first) {
   return out;
 }
 
-## usage: ssub(ere, repl[, in])
+## usage: ssub(ere, repl [, in])
 ## behaves like sub, except returns the result and doesn't modify the original
 function ssub(ere, repl, str) {
   # if "in" is not provided, use $0
@@ -132,7 +132,7 @@ function ssub(ere, repl, str) {
   return str;
 }
 
-## usage: sgsub(ere, repl[, in])
+## usage: sgsub(ere, repl [, in])
 ## behaves like gsub, except returns the result and doesn't modify the original
 function sgsub(ere, repl, str) {
   # if "in" is not provided, use $0

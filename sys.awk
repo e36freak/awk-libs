@@ -13,7 +13,7 @@ function isatty(fd) {
   return !system("test -t " fd);
 }
 
-## usage: mktemp(template[, type])
+## usage: mktemp(template [, type])
 ## creates a temporary file or directory, safely, and returns its name.
 ## if template is not a pathname, the file will be created in ENVIRON["TMPDIR"]
 ## if set, otherwise /tmp. the last six characters of template must be "XXXXXX",

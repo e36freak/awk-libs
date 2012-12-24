@@ -116,7 +116,7 @@ sys.awk
     Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
     error occurs
 
-  mktemp(template[, type])
+  mktemp(template [, type])
     creates a temporary file or directory, safely, and returns its name.
     if template is not a pathname, the file will be created in ENVIRON["TMPDIR"]
     if set, otherwise /tmp. the last six characters of template must be "XXXXXX",
@@ -130,7 +130,7 @@ sys.awk
 
 strings.awk
 
-  center(string[, width])
+  center(string [, width])
     returns "string" centered based on "width". if "width" is not provided (or 
     is 0), uses the width of the terminal, or 80 if standard output is not open
     on a terminal.
@@ -142,7 +142,7 @@ strings.awk
   delete_arr(array)
     deletes every element in "array"
 
-  fold(string, sep[, width])
+  fold(string, sep [, width])
     returns "string", wrapped, with lines broken on "sep" to "width" columns.
     "sep" is a list of characters to break at, similar to IFS in a POSIX shell.
     if "sep" is empty, wraps at exactly "width" characters. if "width" is not
