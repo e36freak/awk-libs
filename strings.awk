@@ -319,6 +319,62 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
   return i - 1;
 }
 
+## usage: ssplit(str, arr, seps [, ere])
+## similar to GNU awk 4's "seps" functionality for split(). splits the string
+## "str" into the array "arr" and the separators array "seps" on the regular
+## expression "ere", and returns the number of fields. the value of "seps[i]"
+## is the separator that appeared in front of "arr[i+1]". if "ere" is omitted or
+## empty, FS is used instead. if "ere" is a single space, leading whitespace in
+## "str" will go into the extra array element "seps[0]" and trailing whitespace
+## will go into the extra array element "seps[len]", where "len" is the return
+## value.
+## note: /regex/ style quoting cannot be used for "ere".
+function ssplit(str, arr, seps, ere,    len, totrim) {
+  # if "ere" is unset or empty, use FS
+  if (!length(ere)) {
+    ere = FS;
+  }
+
+  # if "ere" is a single space...
+  if (ere == " ") {
+    # set it to match all spaces
+    ere = "[[:space:]]+";
+
+    # trim leading whitespace and assign it to seps[0]
+    if (match(str, /[^[:space:]]/)) {
+      seps[0] = substr(str, 1, RSTART - 1);
+      str = substr(str, RSTART);
+
+    # no non-space characters in the line, just return
+    } else {
+      return 0;
+    }
+
+    # don't put an empty element after the last separator
+    totrim = 1;
+  }
+
+
+  # loop while "ere" is matched 
+  while (match(str, ere)) {
+    # append field and sep to arrays
+    len++;
+    arr[len] = substr(str, 1, RSTART - 1);
+    seps[len] = substr(str, RSTART, RLENGTH);
+
+    # remove matched portion from the string
+    str = substr(str, RSTART + RLENGTH);
+  }
+
+  # append last field to "arr" if needed
+  if (length(str) || !totrim) {
+    arr[++len] = str;
+  }
+
+  # return the length
+  return len;
+}
+
 ## usage: trim(string)
 ## returns "string" with leading and trailing whitespace trimmed
 function trim(str) {

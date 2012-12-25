@@ -184,6 +184,30 @@ BEGIN {
   print "";
 }
 
+# usage: ssplit(str, arr, seps [, ere])
+# similar to GNU awk 4's "seps" functionality for split(). splits the string
+# "str" into the array "arr" and the separators array "seps" on the regular
+# expression "ere", and returns the number of fields. the value of "seps[i]"
+# is the separator that appeared in front of "arr[i+1]". if "ere" is omitted or
+# empty, FS is used instead. if "ere" is a single space, leading whitespace in
+# "str" will go into the extra array element "seps[0]" and trailing whitespace
+# will go into the extra array element "seps[len]", where "len" is the return
+# value.
+# note: /regex/ style quoting cannot be used for "ere".
+BEGIN {
+  string = " one  two   three    ";
+  printf("original: <%s>\n", string);
+
+  len = ssplit(string, a, s, " ");
+  print "  after: len = ssplit(string, a, s, \" \")";
+  printf("    len: %d\n    s[0]: <%s>\n", len, s[0]);
+  for (i=1; i<=len; i++) {
+    printf("    a[%d]: <%s>, s[%d]: <%s>\n", i, a[i], i, s[i]);
+  }
+  
+  print "";
+}
+
 # usage: trim(string)
 # returns "string" with leading and trailing whitespace trimmed
 BEGIN {
