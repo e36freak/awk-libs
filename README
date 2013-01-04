@@ -183,7 +183,8 @@ strings.awk
     right and assigns them to $1, $2, etc. also assigns the NF variable. if
     "string" is not supplied, uses $0. "width_spec" is a space separated list of
     numbers that specify field widths, just like GNU awk's FIELDWIDTHS variable.
-    returns the value for NF.
+    if there is data left over after the last width_spec, adds it to a final
+    field. returns the value for NF.
 
   fwidths_arr(width_spec, array [, string])
     the behavior is the same as that of fwidths(), except that the values are

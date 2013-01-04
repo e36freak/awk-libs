@@ -271,7 +271,8 @@ function extract_range(str, start, stop,    i, re, out) {
 ## right and assigns them to $1, $2, etc. also assigns the NF variable. if
 ## "string" is not supplied, uses $0. "width_spec" is a space separated list of
 ## numbers that specify field widths, just like GNU awk's FIELDWIDTHS variable.
-## returns the value for NF.
+## if there is data left over after the last width_spec, adds it to a final
+## field. returns the value for NF.
 function fwidths(wspec, str,    fw, i, len) {
   if (!length(str)) {
     str = $0;
@@ -281,7 +282,7 @@ function fwidths(wspec, str,    fw, i, len) {
   len = split(wspec, fw, / /);
   
   # loop over each wspec value, while the string is not exhausted
-  for (i=1; str != "" && i <= len; i++) {
+  for (i=1; i <= len && length(str); i++) {
     # assign the field
     $i = substr(str, 1, fw[i]);
 
@@ -289,9 +290,15 @@ function fwidths(wspec, str,    fw, i, len) {
     str = substr(str, fw[i] + 1);
   }
 
+  # if there's anything left, add another field
+  if (length(str)) {
+    $i = str;
+  } else {
+    i--;
+  }
+
   # set and return NF
-  NF = i - 1;
-  return NF;
+  return NF = i;
 }
 
 ## usage: fwidths_arr(width_spec, array [, string])
@@ -307,7 +314,7 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
   len = split(wspec, fw, / /);
 
   # loop over each wspec value, while the string is not exhausted
-  for (i=1; str != "" && i <= len; i++) {
+  for (i=1; i <= len && length(str); i++) {
     # assign the array element
     arr[i] = substr(str, 1, fw[i]);
 
@@ -315,8 +322,15 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
     str = substr(str, fw[i] + 1);
   }
 
+  # if there's anything left, add another field
+  if (length(str)) {
+    arr[i] = str;
+  } else {
+    i--;
+  }
+
   # return the array length
-  return i - 1;
+  return i;
 }
 
 ## usage: ssplit(str, arr, seps [, ere])
