@@ -52,13 +52,13 @@ function create_line(arr, len, sep, q,    i, out, c, new) {
 
 ## usage: qsplit(string, array [, sep [, qualifier] ])
 ## a version of split() designed for CSV-like data. splits "string" on "sep"
-## (,) if not provided, into array[1], array[2], ... array[n]. returns "n".
-## both "sep" and "qualifier" will use the first character in the provided
-## string. uses "qualifier" (" if not provided) and ignores "sep" within
-## quoted fields. doubled qualifiers are considered escaped, and a single 
-## qualifier character is used in its place.
-## for example, foo,"bar,baz""blah",quux will be split as such:
-## array[1] = "foo"; array[2] = "bar,baz\"blah"; array[3] = "quux";
+## (,) if not provided, into array[1], array[2], ... array[n]. returns "n", or
+## "-1 * n" if the line is incomplete (it has an uneven number of quotes). both
+## "sep" and "qualifier" will use the first character in the provided string.
+## uses "qualifier" (" if not provided) and ignores "sep" within quoted fields.
+## doubled qualifiers are considered escaped, and a single qualifier character
+## is used in its place. for example, foo,"bar,baz""blah",quux will be split as
+## such: array[1] = "foo"; array[2] = "bar,baz\"blah"; array[3] = "quux";
 function qsplit(str, arr, sep, q,    a, len, cur, isin, c) {
   delete arr;
 
@@ -113,7 +113,7 @@ function qsplit(str, arr, sep, q,    a, len, cur, isin, c) {
   }
 
   # return length
-  return cur;
+  return cur * (isin ? -1 : 1);
 }
 
 
