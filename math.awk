@@ -190,6 +190,16 @@ function round(mult, num,    r) {
   }
 }
 
+## usage: rint(number)
+## returns "number" rounded to the nearest integer
+function rint(num) {
+  if (num - (n = int(num)) >= .5) {
+    return n + 1;
+  } else {
+    return n;
+  }
+}
+
 ## usage: isint(string)
 ## returns 1 if "string" is a valid integer, otherwise 0
 function isint(str) {

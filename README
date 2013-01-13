@@ -56,6 +56,9 @@ math.awk
     returns "number" rounded to the nearest multiple of "multiple". integers
     only
 
+  rint(number)
+    returns "number" rounded to the nearest integer
+
   change_base(number, start_base, end_base)
     converts "number" from "start_base" to "end_base"
     bases must be between 2 and 64. the digits greater than 9 are represented
