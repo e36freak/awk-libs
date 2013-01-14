@@ -192,11 +192,11 @@ function round(mult, num,    r) {
 
 ## usage: rint(number)
 ## returns "number" rounded to the nearest integer
-function rint(num) {
-  if (num - (n = int(num)) >= .5) {
-    return n + 1;
+function rint(num,    n) {
+  if (num < 0) {
+    return (num - (n = int(num)) < -.5) ? n - 1 : n;
   } else {
-    return n;
+    return (num - (n = int(num)) >= .5) ? n + 1 : n;
   }
 }
 
