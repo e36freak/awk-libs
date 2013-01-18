@@ -41,6 +41,13 @@ BEGIN {
   print round(5, 8);
 }
 
+# usage: rint(number)
+# returns "number" rounded to the nearest integer
+BEGIN {
+  # round to the nearest int
+  print rint(1.3), rint(1.5), rint(2.8)
+}
+
 # usage: change_base(number, start_base, end_base)
 # converts "number" from "start_base" to "end_base"
 # bases must be between 2 and 64. the digits greater than 9 are represented
