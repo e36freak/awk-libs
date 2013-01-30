@@ -379,9 +379,9 @@ times.awk
 
 
 colors.awk
-  set_cols()
-    sets the following variables with tput. printing them will format any
-    text afterwards. colors and formats are:
+  set_cols(array)
+    sets the following values in "array" with tput. printing them will format
+    any text afterwards. colors and formats are:
       bold - bold text (can be combined with a color)
       black - black text
       red - red text
