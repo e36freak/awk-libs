@@ -278,6 +278,16 @@ sort.awk
     sequential integers. everything else is described in qsort() and qsorti()
     above.
 
+  qsortv(s, d [, how])
+    sorts the indices in the array "s" based on the values, creating a new
+    sorted array "d" indexed with sequential integers starting with 1, and the
+    values the indices of "s". returns the length, or -1 if an error occurs.
+    leaves the source array "s" unchanged. the optional string "how" controls
+    the direction and the comparison mode. uses the quicksort algorithm, with a
+    random pivot to avoid worst-case behavior on already sorted arrays. requires
+    the __compare() and __vquicksort() functions. valid values for "how" are
+    explained in the qsort() function above.
+
   shuf(s, d)
     shuffles the array "s", creating a new shuffled array "d" indexed with
     sequential integers starting with one. returns the length, or -1 if an error

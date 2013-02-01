@@ -24,6 +24,35 @@ function __compare(a, b, how) {
   }
 }
 
+# comparison function for the *psort* functions
+# compares "a" and "b" based on "patterns" and "how", returning 0 for false and
+# 1 for true. "patterns" is an indexed array of regexes, from 1 through "max".
+# each regex takes priority over subsequent regexes, followed by non-matching
+# values. required for all of the psort() functions below
+#function __pcompare(a, b, pattens, max, how,    p) {
+#  # loop over each regex in order, and check if either value matches
+#  for (p=1; p<=max; p++) {
+#    # if the first matches...
+#    if (a ~ p) {
+#      # check if the second also matches. if so, do a normal comparison
+#      if (b ~ p) {
+#        return __compare(a, b, how);
+#
+#      # if the second doesn't match, the first sorts higher
+#      } else {
+#        return 1;
+#      }
+#
+#    # if the second matches but the first didn't, the second sorts higher
+#    } else if (b ~ p) {
+#      return 0;
+#    |
+#  }
+#
+#  # no patterns matched, do a normal comparison
+#  return __compare(a, b, how);
+#}
+
 # actual sorting function
 # sorts the values in "array" in-place, from indices "left" to "right", based
 # on the comparison mode "how" (see the qsort() description)
@@ -66,6 +95,102 @@ function __quicksort(array, left, right, how,    piv, mid, tmp) {
   __quicksort(array, left, mid - 1, how);
   __quicksort(array, mid + 1, right, how);
 }
+
+# actual sorting function for the qsortv() function
+# sorts the indices in "array" on the original values in "values", from indices
+# "left" to "right", based on the comparison mode "how" (see the qsortv()
+# description)
+# required for the qsortv() function below
+function __vquicksort(array, values, left, right, how,    piv, mid, tmp) {
+  # return if array contains one element or less
+  if ((right - left) <= 0) {
+    return;
+  }
+
+  # choose random pivot
+  piv = int(rand() * (right - left + 1)) + left;
+
+  # swap left and pivot
+  tmp = array[piv];
+  array[piv] = array[left];
+  array[left] = tmp;
+  tmp = values[piv];
+  values[piv] = values[left];
+  values[left] = tmp;
+  
+  mid = left;
+  # iterate over each element from the second to the last, and compare
+  for (piv=left+1; piv<=right; piv++) {
+    # if the comparison based on "how" is true...
+    if (__compare(values[piv], values[left], how)) {
+      # increment mid
+      mid++;
+
+      # swap mid and pivot
+      tmp = array[piv];
+      array[piv] = array[mid];
+      array[mid] = tmp;
+      tmp = values[piv];
+      values[piv] = values[mid];
+      values[mid] = tmp;
+    }
+  }
+
+  # swap left and mid
+  tmp = array[mid];
+  array[mid] = array[left];
+  array[left] = tmp;
+  tmp = values[mid];
+  values[mid] = values[left];
+  values[left] = tmp;
+  
+  # recursively sort the two halves
+  __quicksort(array, values, left, mid - 1, how);
+  __quicksort(array, values, mid + 1, right, how);
+}
+
+# actual sorting function for the *psort* functions
+# sorts the values in "array" in-place, from indices "left" to "right", based
+# on "how" and the array "patterns" (see the psort() description)
+# required for all of the psort() functions below
+#function __pquicksort(array, left, right, patterns, max, how,    piv, mid, tmp) {
+#  # return if array contains one element or less
+#  if ((right - left) <= 0) {
+#    return;
+#  }
+#
+#  # choose random pivot
+#  piv = int(rand() * (right - left + 1)) + left;
+#
+#  # swap left and pivot
+#  tmp = array[piv];
+#  array[piv] = array[left];
+#  array[left] = tmp;
+#  
+#  mid = left;
+#  # iterate over each element from the second to the last, and compare
+#  for (piv=left+1; piv<=right; piv++) {
+#    # if the comparison based on "how" is true...
+#    if (__pcompare(array[piv], array[left], patterns, max, how)) {
+#      # increment mid
+#      mid++;
+#
+#      # swap mid and pivot
+#      tmp = array[piv];
+#      array[piv] = array[mid];
+#      array[mid] = tmp;
+#    }
+#  }
+#
+#  # swap left and mid
+#  tmp = array[mid];
+#  array[mid] = array[left];
+#  array[left] = tmp;
+#  
+#  # recursively sort the two halves
+#  __pquicksort(array, left, mid - 1, how);
+#  __pquicksort(array, mid + 1, right, how);
+#}
 
 # actual shuffle function
 # shuffles the values in "array" in-place, from indices "left" to "right"
@@ -248,6 +373,43 @@ function iqsorti(array, how,    tmp, count, i) {
 
   # return the length
   return count;
+}
+
+## usage: qsortv(s, d [, how])
+## sorts the indices in the array "s" based on the values, creating a new
+## sorted array "d" indexed with sequential integers starting with 1, and the
+## values the indices of "s". returns the length, or -1 if an error occurs.
+## leaves the source array "s" unchanged. the optional string "how" controls
+## the direction and the comparison mode. uses the quicksort algorithm, with a
+## random pivot to avoid worst-case behavior on already sorted arrays. requires
+## the __compare() and __vquicksort() functions. valid values for "how" are
+## explained in the qsort() function above.
+function qsortv(array, out, how,    values, count, i) {
+  # make sure how is correct
+  if (length(how)) {
+    if (how !~ /^(st[rd]|num) (a|de)sc$/) {
+      return -1;
+    }
+
+  # how was not passed, use the default
+  } else {
+    how = "std asc";
+  }
+
+  # loop over each index, and generate two new arrays: the original indices
+  # mapped to numeric ones, and the values mapped to the same indices
+  count = 0;
+  for (i in array) {
+    count++;
+    out[count] = i;
+    values[count] = array[i];
+  }
+
+  # seed the random number generator
+  srand();
+
+  # actually sort
+  __vquicksort(out, values, 1, count, how);
 }
 
 

@@ -108,6 +108,33 @@ BEGIN {
   print "";
 }
 
+# usage: qsortv(s, d [, how])
+# sorts the indices in the array "s" based on the values, creating a new
+# sorted array "d" indexed with sequential integers starting with 1, and the
+# values the indices of "s". returns the length, or -1 if an error occurs.
+# leaves the source array "s" unchanged. the optional string "how" controls
+# the direction and the comparison mode. uses the quicksort algorithm, with a
+# random pivot to avoid worst-case behavior on already sorted arrays. requires
+# the __compare() and __vquicksort() functions. valid values for "how" are
+# explained in the qsort() function above.
+BEGIN {
+  # populate array
+  j=10
+  for (i=1; i<=10; i++) {
+    a[i] = j--;
+  }
+
+  # sort indices based on numeric values
+  len = qsortv(a, b, "num asc");
+
+  # dump
+  for (i=1; i<=len; i++) {
+    print b[i], a[b[i]];
+  }
+
+  print "";
+}
+
 
 
 # usage: shuf(s, d)
