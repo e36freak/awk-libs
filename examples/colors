@@ -5,9 +5,9 @@
 # AWKPATH or the same dir)
 @include "colors.awk";
 
-# usage: set_cols()
-#   sets the following variables with tput. printing them will format any
-#   text afterwards. colors and formats are:
+# usage: set_cols(array)
+#   sets the following values in "array" with tput. printing them will format
+#   any text afterwards. colors and formats are:
 #     bold - bold text (can be combined with a color)
 #     black - black text
 #     red - red text
@@ -19,16 +19,16 @@
 #     white - white text
 #     reset - resets to default settings
 BEGIN {
-  # set vars
-  set_cols();
+  # set colors
+  set_cols(colors);
 
   # print colored text
-  print red "red\t", bold "bold red" reset;
-  print black "black\t", bold "bold black" reset;
-  print green "green\t", bold "bold green" reset;
-  print yellow "yellow\t", bold "bold yellow" reset;
-  print blue "blue\t", bold "bold blue" reset;
-  print magenta "magenta\t", bold "bold magenta" reset;
-  print cyan "cyan\t", bold "bold cyan" reset;
-  print white "white\t", bold "bold white" reset;
+  print colors["red"] "red\t", colors["bold"] "bold red" colors["reset"];
+  print colors["black"] "black\t", colors["bold"] "bold black" colors["reset"];
+  print colors["green"] "green\t", colors["bold"] "bold green" colors["reset"];
+  print colors["yellow"] "yellow\t", colors["bold"] "bold yellow" colors["reset"];
+  print colors["blue"] "blue\t", colors["bold"] "bold blue" colors["reset"];
+  print colors["magenta"] "magenta\t", colors["bold"] "bold magenta" colors["reset"];
+  print colors["cyan"] "cyan\t", colors["bold"] "bold cyan" colors["reset"];
+  print colors["white"] "white\t", colors["bold"] "bold white" colors["reset"];
 }

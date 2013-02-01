@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 
 # comparison function
-# compares "a" and "b" based on "how", returning 0 for false and 1 for true
+# compares "a" and "b" based on "how", returning 0 for false and 1 for true.
 # required for all of the qsort() functions below
 function __compare(a, b, how) {
   # standard comparisons
@@ -55,7 +55,7 @@ function __compare(a, b, how) {
 
 # actual sorting function
 # sorts the values in "array" in-place, from indices "left" to "right", based
-# on the comparison mode "how" (see the qsort() description)
+# on the comparison mode "how" (see the qsort() description).
 # required for all of the qsort() functions below
 function __quicksort(array, left, right, how,    piv, mid, tmp) {
   # return if array contains one element or less
@@ -193,7 +193,7 @@ function __vquicksort(array, values, left, right, how,    piv, mid, tmp) {
 #}
 
 # actual shuffle function
-# shuffles the values in "array" in-place, from indices "left" to "right"
+# shuffles the values in "array" in-place, from indices "left" to "right".
 # required for all of the shuf() functions below
 function __shuffle(array, left, right,    r, i, tmp) {
   # loop backwards over the elements
