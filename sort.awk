@@ -411,6 +411,9 @@ function qsortv(array, out, how,    values, count, i) {
 
   # actually sort
   __vquicksort(out, values, 1, count, how);
+
+  # return the length
+  return count;
 }
 
 
