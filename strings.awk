@@ -389,6 +389,12 @@ function ssplit(str, arr, seps, ere,    len, totrim) {
   return len;
 }
 
+## usage: ends_with(string, substring)
+## returns 1 if "strings" ends with "substring", otherwise 0
+function ends_with(string, s) {
+  return substr(string, length(string) - length(s) + 1) == s;
+}
+
 ## usage: trim(string)
 ## returns "string" with leading and trailing whitespace trimmed
 function trim(str) {

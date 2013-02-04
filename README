@@ -205,6 +205,9 @@ strings.awk
     value.
     note: /regex/ style quoting cannot be used for "ere".
 
+  ends_with(string, substring)
+    returns 1 if "strings" ends with "substring", otherwise 0
+
   trim(string)
     returns "string" with leading and trailing whitespace trimmed
 

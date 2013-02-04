@@ -209,6 +209,26 @@ BEGIN {
   print "";
 }
 
+# usage: ends_with(string, substring)
+# returns 1 if "strings" ends with "substring", otherwise 0
+BEGIN {
+  string = "foobar"; s = "bar";
+  if (ends_with(string, s)) {
+    printf("%s ends with %s\n", string, s);
+  } else {
+    printf("%s does not end with %s\n", string, s);
+  }
+
+  string = "foobarfoo"; s = "bar";
+  if (ends_with(string, s)) {
+    printf("%s ends with %s\n", string, s);
+  } else {
+    printf("%s does not end with %s\n", string, s);
+  }
+
+  print "";
+}
+
 # usage: trim(string)
 # returns "string" with leading and trailing whitespace trimmed
 BEGIN {
