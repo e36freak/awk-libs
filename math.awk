@@ -174,6 +174,71 @@ function format_num(num,    is_float, b, e, i, len, r, out) {
   return out;
 }
 
+## usage: str_to_num(string)
+## examines "string", and returns its numeric value. if "string" begins with a
+## leading 0, assumes that "string" is an octal number. if "string" begins with
+## a leading "0x" or "0X", assumes that "string" is a hexadecimal number.
+## otherwise, decimal is assumed.
+function str_to_num(str,    base, isneg, l, i, j, chars, c, num) {
+  # convert to all lowercase
+  str = tolower(str);
+
+  # determine if number is negative. if so, set isneg=1 and remove the '-'
+  if (sub(/^-/, "", num)) {
+    isneg = 1;
+  }
+
+  # examine the string, to determine the base and trim said base information
+  if (sub(/^0x/, "", str)) {
+    base = 16;
+  } else if (sub(/^0/, "", str)) {
+    base = 8;
+  } else {
+    base = 10;
+  }
+
+  # trim everything from the first non-number character to the end
+  if (base == 16) {
+    sub(/[^[:xdigit:]].*/, "", str);
+  } else {
+    sub(/[^[:digit:]].*/, "", str);
+  }
+
+  # if the base is octal, but there's a number >= 8, set it to decimal instead
+  if (base == 8 && str ~ /[89]/) {
+    base = 10;
+  }
+
+  # don't need to convert if the base is 10
+  if (base == 10) {
+    return isneg ? -str : +str;
+  }
+
+  # set letters for hex
+  if (base == 16) {
+    chars["a"] = 10; chars["b"] = 11; chars["c"] = 12;
+    chars["d"] = 13; chars["e"] = 14; chars["f"] = 15;
+  }
+
+  # convert to base 10
+  l = length(str);
+
+  j = num = 0;
+  for (i=l; i>0; i--) {
+    c = substr(str, i, 1);
+
+    # if char is a non-digit convert to dec
+    if (c !~ /^[0-9]$/) {
+      c = chars[c];
+    }
+
+    num += c * (base ^ j++);
+  }
+  
+  # return the number
+  return isneg ? -num : +num;
+}
+
 ## usage: floor(multiple, number)
 ## returns "number" rounded DOWN to the nearest multiple of "multiple"
 function floor(mult, num) {
