@@ -245,6 +245,39 @@ function isprime(num,    i) {
   return 1;
 }
 
+## usage: gcd(a, b)
+## returns the greatest common denominator (greatest common factor) of a and b.
+## both a and b must be positive integers. uses the recursive euclid algorithm.
+function gcd(a, b) {
+  # check to make sure both numbers are positive ints
+  if (a !~ /^[0-9]+$/ || !a || b !~ /^[0-9]+$/ || !b) {
+    return 0;
+  }
+
+  if (b) {
+    return gcd(b, a % b);
+
+  } else {
+    # return the absolute value
+    return a < 0 ? -a : a;
+  }
+}
+
+## usage: lcm(a, b)
+## returns the least common multiple of a and b. both a and b must be positive
+## integers.
+function lcm(a, b,    m, l) {
+  # check to make sure both numbers are positive ints
+  if (a !~ /^[0-9]+$/ || !a || b !~ /^[0-9]+$/ || !b) {
+    return 0;
+  }
+
+  m = 0;
+  while ((l = ++m * a) % b);
+
+  return l;
+}
+
 ## usage: calc_e()
 ## approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 ## returns 10 decimal places

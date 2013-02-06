@@ -83,6 +83,14 @@ math.awk
     returns 1 if "number" is a prime number, otherwise 0. "number" must be a
     positive integer
 
+  gcd(a, b)
+    returns the greatest common denominator (greatest common factor) of a and b.
+    both a and b must be positive integers. uses the recursive euclid algorithm.
+
+  lcm(a, b)
+    returns the least common multiple of a and b. both a and b must be positive
+    integers.
+
   calc_e()
     approximates e by calculating the sumation from k=0 to k=50 of 1/k!
     returns 10 decimal places

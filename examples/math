@@ -147,6 +147,20 @@ BEGIN {
   print "";
 }
 
+# usage: gcd(a, b)
+# returns the greatest common denominator (greatest common factor) of a and b.
+# both a and b must be positive integers. uses the recursive euclid algorithm.
+BEGIN {
+  print "the greatest common factor of 3 and 6 is", gcd(3, 6);
+}
+
+# usage: lcm(a, b)
+# returns the least common multiple of a and b. both a and b must be positive
+# integers.
+BEGIN {
+  print "the least common multiple of 4 and 16 is", lcm(4, 16);
+}
+
 # usage: calc_e()
 # approximates e by calculating the sumation from k=0 to k=50 of 1/k!
 # returns 10 decimal places
