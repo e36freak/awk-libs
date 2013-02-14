@@ -11,7 +11,7 @@
 function usage() {
   printf("%s\n\n%s\n\n%s\n%s\n%s\n%s\n\n",
 "cfold -- [OPTIONS] [FILE...]",
-"the '--' is required, so AWK it self doesn't read the options",
+"the '--' is required, so AWK itself doesn't read the options",
 "Wraps input lines in each FILE (standard input if not provided), writing to",
 "standard output. The default width is that of the terminal, or 80 columns if",
 "standard output is not a terminal. If FILE is '-', also reads the standard",
@@ -140,4 +140,8 @@ toignore && NR > 1 {
   } else {
     print out;
   }
+}
+
+END {
+  exit err;
 }
