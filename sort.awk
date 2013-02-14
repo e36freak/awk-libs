@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 
 # comparison function
+# usage: __compare(a, b, how)
 # compares "a" and "b" based on "how", returning 0 for false and 1 for true.
 # required for all of the qsort() functions below
 function __compare(a, b, how) {
@@ -25,13 +26,14 @@ function __compare(a, b, how) {
 }
 
 # comparison function for the *psort* functions
+# usage: __pcompare(a, b, patterns, max, how)
 # compares "a" and "b" based on "patterns" and "how", returning 0 for false and
 # 1 for true. "patterns" is an indexed array of regexes, from 1 through "max".
 # each regex takes priority over subsequent regexes, followed by non-matching
 # values. required for all of the psort() functions below
-function __pcompare(a, b, pattens, max, how,    p) {
+function __pcompare(a, b, pattens, plen, how,    p) {
   # loop over each regex in order, and check if either value matches
-  for (p=1; p<=max; p++) {
+  for (p=1; p<=plen; p++) {
     # if the first matches...
     if (a ~ p) {
       # check if the second also matches. if so, do a normal comparison
@@ -46,7 +48,7 @@ function __pcompare(a, b, pattens, max, how,    p) {
     # if the second matches but the first didn't, the second sorts higher
     } else if (b ~ p) {
       return 0;
-    |
+    }
   }
 
   # no patterns matched, do a normal comparison
@@ -172,7 +174,7 @@ function __pquicksort(array, left, right, patterns, plen, how,
   # iterate over each element from the second to the last, and compare
   for (piv=left+1; piv<=right; piv++) {
     # if the comparison based on "how" is true...
-    if (__pcompare(array[piv], array[left], patterns, max, how)) {
+    if (__pcompare(array[piv], array[left], patterns, plen, how)) {
       # increment mid
       mid++;
 
@@ -543,7 +545,7 @@ function psorti(array, out, patterns, plen, how,    count, i) {
 ## sorted in-place. the original indices are destroyed and replaced with
 ## sequential integers. everything else is described in psort() and psorti()
 ## above.
-function iqsorti(array, patterns, plen, how,    tmp, count, i) {
+function ipsorti(array, patterns, plen, how,    tmp, count, i) {
   # make sure how is correct
   if (length(how)) {
     if (how !~ /^(st[rd]|num) (a|de)sc$/) {
