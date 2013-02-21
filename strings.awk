@@ -333,6 +333,35 @@ function fwidths_arr(wspec, arr, str,    fw, i, len) {
   return i;
 }
 
+## usage: lsplit(str, arr, sep)
+## splits the string "str" into array elements "arr[1]", "arr[2]", .., "arr[n]",
+## and returns "n". all elements of "arr" are deleted before the split is
+## performed. the separation is done on the literal string "sep".
+function lsplit(str, arr, sep,    len, slen, i) {
+  # empty "arr"
+  split("", arr);
+
+  # if "sep" is empty, just do a normal split
+  if (!(slen = length(sep))) {
+    return split(str, arr, "");
+  }
+
+  # loop while "sep" is matched
+  while (i = index(str, sep)) {
+    # append field to array
+    arr[++len] = substr(str, 1, i - 1);
+
+    # remove that portion (with the sep) from the string
+    str = substr(str, i + slen);
+  }
+
+  # append last field to "arr"
+  arr[++len] = str;
+
+  # return the length
+  return len;
+}
+
 ## usage: ssplit(str, arr, seps [, ere])
 ## similar to GNU awk 4's "seps" functionality for split(). splits the string
 ## "str" into the array "arr" and the separators array "seps" on the regular

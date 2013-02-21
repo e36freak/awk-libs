@@ -185,6 +185,25 @@ BEGIN {
   print "";
 }
 
+# usage: lsplit(str, arr, sep)
+# splits the string "str" into array elements "arr[1]", "arr[2]", .., "arr[n]",
+# and returns "n". all elements of "arr" are deleted before the split is
+# performed. the separation is done on the literal string "sep".
+BEGIN {
+  string = "foo.bar.baz"
+  sep = ".";
+  printf("original: <%s>\nsep: <%s>\n", string, sep);
+  
+  len = lsplit(string, a, sep);
+  print "  after: len = lsplit(string, a, sep)";
+  printf("    len: %d\n", len);
+  for (i=1; i<=len; i++) {
+    printf("    a[%d]: <%s>\n", i, a[i]);
+  }
+
+  print "";
+}
+
 # usage: ssplit(str, arr, seps [, ere])
 # similar to GNU awk 4's "seps" functionality for split(). splits the string
 # "str" into the array "arr" and the separators array "seps" on the regular
