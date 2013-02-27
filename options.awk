@@ -41,7 +41,7 @@ function getopts(optstring, longarr,    opt, trimmed, hasarg, repeat) {
     trimmed = substr(ARGV[optind], 3);
     # if of the format --foo=bar, split the two. assign "bar" to optarg and
     # set hasarg to 1
-    if (trimmed ~ /.*=.*/) {
+    if (trimmed ~ /=/) {
       optarg = trimmed;
       sub(/=.*/, "", trimmed); sub(/^[^=]*=/, "", optarg);
       hasarg = 1;
