@@ -129,8 +129,8 @@ function __vquicksort(array, values, left, right, how,    piv, mid, tmp) {
 ## starting with 1. returns the length, or -1 if an error occurs.. leaves the
 ## indices of the source array "s" unchanged. the optional string "how" controls
 ## the direction and the comparison mode. uses the quick sort algorithm, with a
-## random pivot to avoid worst-case behavior on already sorted arrays. requires
-## the __compare() and __quicksort() functions.
+## random pivot to avoid worst-case behavior on already sorted arrays. this is
+## not a stable sort. requires the __compare() and __quicksort() functions.
 ## valid values for "how" are:
 ##   "std asc"
 ##     use awk's standard rules for comparison, ascending. this is the default
@@ -294,9 +294,9 @@ function iqsorti(array, how,    tmp, count, i) {
 ## values the indices of "s". returns the length, or -1 if an error occurs.
 ## leaves the source array "s" unchanged. the optional string "how" controls
 ## the direction and the comparison mode. uses the quicksort algorithm, with a
-## random pivot to avoid worst-case behavior on already sorted arrays. requires
-## the __compare() and __vquicksort() functions. valid values for "how" are
-## explained in the qsort() function above.
+## random pivot to avoid worst-case behavior on already sorted arrays. this is
+## not a stable sort. requires the __compare() and __vquicksort() functions.
+## valid values for "how" are explained in the qsort() function above.
 function qsortv(array, out, how,    values, count, i) {
   # make sure how is correct
   if (length(how)) {

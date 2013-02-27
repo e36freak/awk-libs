@@ -262,6 +262,59 @@ strings.awk
 
 
 
+msort.awk
+
+  msort(s, d [, how])
+    sorts the elements in the array "s" using awk's normal rules for comparing
+    values, creating a new sorted array "d" indexed with sequential integers
+    starting with 1. returns the length, or -1 if an error occurs.. leaves the
+    indices of the source array "s" unchanged. the optional string "how" controls
+    the direction and the comparison mode. uses the merge sort algorithm, with an
+    insertion sort when the list size gets small enough. this is not a stable
+    sort. requires the __compare() and __mergesort() functions.
+    valid values for "how" are:
+      "std asc"
+        use awk's standard rules for comparison, ascending. this is the default
+      "std desc"
+        use awk's standard rules for comparison, descending.
+      "str asc"
+        force comparison as strings, ascending.
+      "str desc"
+        force comparison as strings, descending.
+      "num asc"
+        force a numeric comparison, ascending.
+      "num desc"
+        force a numeric comparison, descending.
+
+  imsort(s [, how])
+    the bevavior is the same as that of msort(), except that the array "s" is
+    sorted in-place. the original indices are destroyed and replaced with
+    sequential integers. everything else is described in msort() above.
+
+  msorti(s, d [, how])
+    the behavior is the same as that of msort(), except that the array indices
+    are used for sorting, not the array values. when done, the new array is
+    indexed numerically, and the values are those of the original indices.
+    everything else is described in msort() above.
+
+  imsorti(s [, how])
+    the bevavior is the same as that of msorti(), except that the array "s" is
+    sorted in-place. the original indices are destroyed and replaced with
+    sequential integers. everything else is described in msort() and msorti()
+    above.
+
+  msortv(s, d [, how])
+    sorts the indices in the array "s" based on the values, creating a new
+    sorted array "d" indexed with sequential integers starting with 1, and the
+    values the indices of "s". returns the length, or -1 if an error occurs.
+    leaves the source array "s" unchanged. the optional string "how" controls
+    the direction and the comparison mode. uses the merge sort algorithm, with
+    an insertion sort when the list size gets small enough. this is not a stable
+    sort. requires the __compare() and __mergesortv() functions. valid values for
+    "how" are explained in the msort() function above.
+
+
+
 qsort.awk
 
   qsort(s, d [, how])
@@ -270,8 +323,8 @@ qsort.awk
     starting with 1. returns the length, or -1 if an error occurs.. leaves the
     indices of the source array "s" unchanged. the optional string "how" controls
     the direction and the comparison mode. uses the quick sort algorithm, with a
-    random pivot to avoid worst-case behavior on already sorted arrays. requires
-    the __compare() and __quicksort() functions.
+    random pivot to avoid worst-case behavior on already sorted arrays. this is
+    not a stable sort. requires the __compare() and __quicksort() functions.
     valid values for "how" are:
       "std asc"
         use awk's standard rules for comparison, ascending. this is the default
@@ -309,9 +362,9 @@ qsort.awk
     values the indices of "s". returns the length, or -1 if an error occurs.
     leaves the source array "s" unchanged. the optional string "how" controls
     the direction and the comparison mode. uses the quicksort algorithm, with a
-    random pivot to avoid worst-case behavior on already sorted arrays. requires
-    the __compare() and __vquicksort() functions. valid values for "how" are
-    explained in the qsort() function above.
+    random pivot to avoid worst-case behavior on already sorted arrays. this is
+    not a stable sort. requires the __compare() and __vquicksort() functions.
+    valid values for "how" are explained in the qsort() function above.
 
 
 
