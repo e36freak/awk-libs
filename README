@@ -38,6 +38,7 @@ require what) are explained in the comments.
 Libraries, and the available functions within:
 
 math.awk
+
   abs(number)
     returns the absolute value of "number"
 
@@ -129,6 +130,7 @@ math.awk
 
 
 sys.awk
+
   isatty(fd)
     Checks if "fd" is open on a tty. Returns 1 if so, 0 if not, and -1 if an
     error occurs
@@ -260,7 +262,8 @@ strings.awk
 
 
 
-sort.awk
+qsort.awk
+
   qsort(s, d [, how])
     sorts the elements in the array "s" using awk's normal rules for comparing
     values, creating a new sorted array "d" indexed with sequential integers
@@ -310,14 +313,18 @@ sort.awk
     the __compare() and __vquicksort() functions. valid values for "how" are
     explained in the qsort() function above.
 
+
+
+psort.awk
+
   psort(s, d, patts, max [, how])
     sorts the values of the array "s", based on the rules below. creates a new
     sorted array "d" indexed with sequential integers starting with 1. "patts"
     is a compact (*non-sparse) 1-indexed array containing regular expressions.
     "max" is the length of the "patts" array. returns the length of the "d"
-    array. "how" is explained in qsort() above. uses the quicksort algorithm,
-    with a random pivot to avoid worst-case behavior on already sorted arrays.
-    requires the __compare() and __pquicksort() functions.
+    array. valid values for "how" are explained below. uses the quicksort
+    algorithm, with a random pivot to avoid worst-case behavior on already sorted
+    arrays. requires the __pcompare() and __pquicksort() functions.
      Sorting rules:
      - When sorting, values matching an expression in the "patts" array will
        take priority over any other values
@@ -326,6 +333,19 @@ sort.awk
        "patts[3]", etc
      - Values both matching the same regex will be compared as usual
      - All non-matching values will be compared as usual
+    valid values for "how" are:
+      "std asc"
+        use awk's standard rules for comparison, ascending. this is the default
+      "std desc"
+        use awk's standard rules for comparison, descending.
+      "str asc"
+        force comparison as strings, ascending.
+      "str desc"
+        force comparison as strings, descending.
+      "num asc"
+        force a numeric comparison, ascending.
+      "num desc"
+        force a numeric comparison, descending.
 
   ipsort(s, patts, max [, how])
     the bevavior is the same as that of psort(), except that the array "s" is
@@ -343,6 +363,10 @@ sort.awk
     sorted in-place. the original indices are destroyed and replaced with
     sequential integers. everything else is described in psort() and psorti()
     above.
+
+
+
+shuf.awk
 
   shuf(s, d)
     shuffles the array "s", creating a new shuffled array "d" indexed with
