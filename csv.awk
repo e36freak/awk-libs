@@ -1,23 +1,33 @@
 #!/usr/bin/awk -f
 
-## usage: create_line(array, max [, sep [, qualifier] ])
+## usage: create_line(array, max [, sep [, qualifier [, quote_type] ] ])
 ## Generates an output line in quoted CSV format, from the contents of "array"
 ## "array" is expected to be an indexed array (1-indexed). "max" is the highest
 ## index to be used. "sep", if provided, is the field separator. If it is more
 ## than one character, the first character in the string is used. By default,
 ## it is a comma. "qualifier", if provided, is the quote character. Like "sep",
-## it is one character. The default value is `"'. For example, the array:
-## a[1]="foo"; a[2]="bar,quux"; a[3]="blah\"baz", when called with
-## create_line(a, 3), will return: "foo","bar,quux","blah""baz".
+## it is one character. The default value is `"'. "quote_type", if provided, is
+## used to determine how the output fields are quoted. Valid values are given
+## below. For example, the array: a[1]="foo"; a[2]="bar,quux"; a[3]="blah\"baz"
+## when called with create_line(a, 3), will return: "foo","bar,quux","blah""baz"
 ## note: expects a non-sparse array. empty or unset values will become
 ## empty fields
-function create_line(arr, len, sep, q,    i, out, c, new) {
+## Valid values for "quote_type":
+##   "t": Quote all strings, do not quote numbers. This is the default
+##   "a": Quote all fields
+##   "m": Only quote fields with commas or quote characters in them
+function create_line(arr, len, sep, q, type,    i, out, c, new) {
   # set "sep" if the arg was provided, using the first char
   if (length(sep)) {
     sep = substr(sep, 1, 1);
   # default
   } else {
     sep = ",";
+  }
+
+  # validate "type"
+  if (!length(type) || type !~ /^[tam]$/) {
+    type = "t";
   }
 
   # set "q" if the arg was provided, using the first char
@@ -33,17 +43,36 @@ function create_line(arr, len, sep, q,    i, out, c, new) {
 
   # iterate over the array elements
   for (i=1; i<=len; i++) {
-    # empty escaped string
-    new = "";
-    # create escaped string
-    while (c = index(arr[i], q)) {
-      new = new substr(arr[i], 1, c - 1) q q;
-      arr[i] = substr(arr[i], c + 1);
+    # determine if the output string needs to be quoted
+    toquote = 0;
+    if (type == "t") {
+      if (arr[i] ~ /[^0-9.]/ || index(arr[i], sep) || index(arr[i], q)) {
+        toquote = 1;
+      }
+    } else if (type == "a") {
+      toquote = 1;
+    } else {
+      if (index(arr[i], sep) || index(arr[i], q)) {
+        toquote = 1;
+      }
     }
-    new = new arr[i];
 
-    # quote escaped string, add to output with sep
-    out = (i > 1) ? out sep q new q : q new q;
+    # create output string
+    if (toquote) {
+      new = "";
+      while (c = index(arr[i], q)) {
+        new = new substr(arr[i], 1, c - 1) q q;
+        arr[i] = substr(arr[i], c + 1);
+      }
+      new = new arr[i];
+
+      # quote escaped string, add to output with sep
+      out = (i > 1) ? out sep q new q : q new q;
+
+      # no quotes needed, just add to output with sep
+    } else {
+      out = (i > 1) ? out sep arr[i] : arr[i];
+    }
   }
 
   # return output string

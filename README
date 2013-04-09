@@ -448,17 +448,22 @@ shuf.awk
 
 csv.awk
 
-  create_line(array, max [, sep [, qualifier] ])
+  create_line(array, max [, sep [, qualifier [, quote_type] ] ])
     Generates an output line in quoted CSV format, from the contents of "array"
     "array" is expected to be an indexed array (1-indexed). "max" is the highest
     index to be used. "sep", if provided, is the field separator. If it is more
     than one character, the first character in the string is used. By default,
     it is a comma. "qualifier", if provided, is the quote character. Like "sep",
-    it is one character. The default value is `"'. For example, the array:
-    a[1]="foo"; a[2]="bar,quux"; a[3]="blah\"baz", when called with
-    create_line(a, 3), will return: "foo","bar,quux","blah""baz".
+    it is one character. The default value is `"'. "quote_type", if provided, is
+    used to determine how the output fields are quoted. Valid values are given
+    below. For example, the array: a[1]="foo"; a[2]="bar,quux"; a[3]="blah\"baz"
+    when called with create_line(a, 3), will return: "foo","bar,quux","blah""baz"
     note: expects a non-sparse array. empty or unset values will become
     empty fields
+    Valid values for "quote_type":
+      "t": Quote all strings, do not quote numbers. This is the default
+      "a": Quote all fields
+      "m": Only quote fields with commas or quote characters in them
 
   qsplit(string, array [, sep [, qualifier] ])
     a version of split() designed for CSV-like data. splits "string" on "sep"
