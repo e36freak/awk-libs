@@ -365,13 +365,13 @@ function calc_e(lim,    e, k, i, f) {
 ## usage: calc_pi()
 ## returns pi, with an accuracy of 10 decimal places
 function calc_pi() {
-  return sprintf("%0.10f", 4 * atan2(1, 1));
+  return sprintf("%0.10f", atan2(0, -1));
 }
 
 ## usage: calc_tau()
 ## returns tau, with an accuracy of 10 decimal places
 function calc_tau() {
-  return sprintf("%0.10f", 8 * atan2(1, 1));
+  return sprintf("%0.10f", 2 * atan2(0, -1));
 }
 
 ## usage: deg_to_rad(degrees)
