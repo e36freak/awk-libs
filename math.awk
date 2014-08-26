@@ -302,7 +302,7 @@ function isprime(num,    i, s) {
 
   # check for primality
   s = sqrt(num)
-  for (i=3; i*i <= s; i+=2) {
+  for (i=3; i <= s; i+=2) {
     if (!(num % i)) {
       return 0;
     }
