@@ -314,14 +314,16 @@ function isprime(num,    i, s) {
 ## usage: gcd(a, b)
 ## returns the greatest common denominator (greatest common factor) of a and b.
 ## both a and b must be positive integers. uses the recursive euclid algorithm.
-function gcd(a, b) {
+function gcd(a, b,    f) {
   # check to make sure both numbers are positive ints
-  if (a !~ /^[0-9]+$/ || !a || b !~ /^[0-9]+$/ || !b) {
-    return 0;
+  if (!f) {
+    if (a !~ /^[0-9]+$/ || !a || b !~ /^[0-9]+$/ || !b) {
+      return 0;
+    }
   }
 
   if (b) {
-    return gcd(b, a % b);
+    return gcd(b, a % b, 1);
 
   } else {
     # return the absolute value
