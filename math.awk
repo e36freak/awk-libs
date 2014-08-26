@@ -295,14 +295,25 @@ function isprime(num,    i, s) {
     return 0;
   }
 
-  # all even numbers except 2 are not prime
-  if (num > 2 && (num % 2) == 0) {
+  # 1, 2, and 3 are prime
+  if (num <= 3) {
+    return 1;
+  }
+  
+  # check if even or divisible by 3
+  if (!(num % 2) || !(num % 3)) {
     return 0;
   }
-
-  # check for primality
-  s = sqrt(num)
-  for (i=3; i <= s; i+=2) {
+  
+  # weed out most composite numbers quickly with fermats little theorem
+  # use 2, as 2 is coprime to all odd numbers
+  if ((2 ^ (num - 1)) % num != 1) {
+    return 0;
+  }
+  
+  # use naive method to remove pseudoprimes
+  s = sqrt(num);
+  for (i=5; i<=s; i+=2) {
     if (!(num % i)) {
       return 0;
     }
