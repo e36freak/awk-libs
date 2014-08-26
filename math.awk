@@ -289,7 +289,7 @@ function isnum(str) {
 ## usage: isprime(number)
 ## returns 1 if "number" is a prime number, otherwise 0. "number" must be a
 ## positive integer
-function isprime(num,    i) {
+function isprime(num,    i, s) {
   # check to make sure "num" is a valid positive int (and not 1)
   if (num !~ /^[0-9]+$/ || num <= 1) {
     return 0;
@@ -301,7 +301,8 @@ function isprime(num,    i) {
   }
 
   # check for primality
-  for (i=3; i*i <= num; i+=2) {
+  s = sqrt(num)
+  for (i=3; i*i <= s; i+=2) {
     if (!(num % i)) {
       return 0;
     }
