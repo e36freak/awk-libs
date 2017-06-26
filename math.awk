@@ -50,7 +50,7 @@ function change_base(num, ibase, obase,
   # set letters to numbers conversion array
   if (ibase > 10 || obase > 10) {
     # set chars[] array to convert letters to numbers
-    c = "abcbdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@_";
+    c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@_";
     l = length(c);
 
     j = 10;
