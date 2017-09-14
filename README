@@ -88,7 +88,7 @@ math.awk
 
   isprime(number)
     returns 1 if "number" is a prime number, otherwise 0. "number" must be a
-    positive integer
+    positive integer greater than one
 
   gcd(a, b)
     returns the greatest common denominator (greatest common factor) of a and b.
