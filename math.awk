@@ -288,7 +288,7 @@ function isnum(str) {
 
 ## usage: isprime(number)
 ## returns 1 if "number" is a prime number, otherwise 0. "number" must be a
-## positive integer
+## positive integer greater than one
 function isprime(num,    i, s) {
   # check to make sure "num" is a valid positive int (and not 1)
   if (num !~ /^[0-9]+$/ || num <= 1) {
